@@ -43,7 +43,7 @@ export default function ContactPage() {
         <motion.button whileTap={{ scale: 0.97 }} type="submit" className="bg-green-400 text-black font-bold py-3 rounded-lg shadow-lg hover:bg-green-300 transition">
           Send Message
         </motion.button>
-        {status === "success" && <p className="text-green-400 text-center">Message sent! We'll get back to you soon.</p>}
+        {status === "success" && <p className="text-green-400 text-center">Message sent! We&apos;ll get back to you soon.</p>}
         {status === "error" && <p className="text-red-400 text-center">Something went wrong. Please try again.</p>}
       </motion.form>
     </section>
