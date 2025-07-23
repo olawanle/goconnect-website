@@ -15,7 +15,7 @@ const plans = [
       "Basic AI Persona & Flow Design",
       "Email Support (48h)"
     ],
-    buy: () => "starter"
+    buy: () => "starter" as const
   },
   {
     name: "Growth",
@@ -35,7 +35,7 @@ const plans = [
       "Priority Support (24h)"
     ],
     popular: true,
-    buy: () => "growth"
+    buy: () => "growth" as const
   },
   {
     name: "Enterprise",
@@ -54,7 +54,7 @@ const plans = [
       "Custom KPI Analytics Dashboard",
       "Dedicated Manager (Slack/Telegram)"
     ],
-    buy: () => "enterprise"
+    buy: () => "enterprise" as const
   }
 ];
 
