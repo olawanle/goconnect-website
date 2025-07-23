@@ -1,11 +1,7 @@
-import AnimatedHeading from "../components/AnimatedHeading";
-
 export default function AboutPage() {
   return (
     <section className="max-w-3xl mx-auto p-8 text-center">
-      <AnimatedHeading className="text-4xl font-bold mb-4 text-green-400">
-        About GoConnect
-      </AnimatedHeading>
+      <h1 className="text-4xl font-bold mb-4 text-green-400">About GoConnect</h1>
       <p className="text-lg mb-6 text-gray-200">
         GoConnect is dedicated to revolutionizing business automation with cutting-edge AI and chatbot solutions. Our mission is to empower companies to connect, automate, and grow with intelligent technology.
       </p>

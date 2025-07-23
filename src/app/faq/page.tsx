@@ -1,5 +1,3 @@
-import AnimatedHeading from "../components/AnimatedHeading";
-
 const faqs = [
   {
     q: "What is GoConnect?",
@@ -18,9 +16,7 @@ const faqs = [
 export default function FAQPage() {
   return (
     <section className="max-w-3xl mx-auto p-8 text-center">
-      <AnimatedHeading className="text-4xl font-bold mb-4 text-green-400">
-        Frequently Asked Questions
-      </AnimatedHeading>
+      <h1 className="text-4xl font-bold mb-4 text-green-400">Frequently Asked Questions</h1>
       <div className="mt-8 text-left space-y-6">
         {faqs.map((faq, i) => (
           <div key={i} className="bg-gray-900 rounded-xl p-6 shadow border border-green-900">

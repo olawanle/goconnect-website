@@ -1,5 +1,3 @@
-import AnimatedHeading from "../components/AnimatedHeading";
-
 const jobs = [
   {
     title: "AI Solutions Engineer",
@@ -11,9 +9,7 @@ const jobs = [
 export default function CareersPage() {
   return (
     <section className="max-w-3xl mx-auto p-8 text-center">
-      <AnimatedHeading className="text-4xl font-bold mb-4 text-green-400">
-        Careers
-      </AnimatedHeading>
+      <h1 className="text-4xl font-bold mb-4 text-green-400">Careers</h1>
       <div className="flex flex-col gap-8 mt-8">
         {jobs.map((job, i) => (
           <div key={i} className="bg-gray-900 rounded-xl p-6 shadow-lg border border-green-900 text-left">
