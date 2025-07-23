@@ -3,7 +3,7 @@ import React from "react";
 import { useState } from "react";
 import Link from "next/link";
 
-const responses: Record<string, JSX.Element> = {
+const responses: Record<string, React.ReactElement> = {
   "contact": <span>Our <Link href="/contact" className="text-green-400 underline">Contact page</Link> is here!</span>,
   "services": <span>See our <Link href="/services" className="text-green-400 underline">Services</Link> here.</span>,
   "about": <span>Learn more <Link href="/about" className="text-green-400 underline">About us</Link>.</span>,
@@ -15,7 +15,7 @@ const responses: Record<string, JSX.Element> = {
 export default function ChatBot() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
-  const [messages, setMessages] = useState<JSX.Element[]>([<span key="init">Hi! How can I help you navigate GoConnect?</span>]);
+  const [messages, setMessages] = useState<React.ReactElement[]>([<span key="init">Hi! How can I help you navigate GoConnect?</span>]);
 
   const handleSend = () => {
     if (!input.trim()) return;
