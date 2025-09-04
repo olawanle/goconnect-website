@@ -1,151 +1,282 @@
-"use client";
-import { useState } from "react";
-import Script from 'next/script';
+import Link from 'next/link'
 
-const plans = [
-  {
-    name: "Starter",
-    price: "$499 one-time",
-    ideal: "Solopreneurs & Startups",
-    features: [
-      "1 Custom Chatbot (Botpress/Telegram)",
-      "Website Integration",
-      "Basic Automation Setup",
-      "30 min Strategy Session",
-      "Basic AI Persona & Flow Design",
-      "Email Support (48h)"
-    ],
-    buy: () => "starter" as const
-  },
-  {
-    name: "Growth",
-    price: "$1,499",
-    ideal: "Growing Brands",
-    features: [
-      "Up to 3 Custom Chatbots",
-      "Website Integration",
-      "Advanced Automation + CRM",
-      "Lead Capture & CRM Integration",
-      "1 hr/month Strategy Session",
-      "Basic NLP/AI Training",
-      "2 Languages",
-      "Backend/Database",
-      "Pro AI Persona & Flow Design",
-      "Standard Analytics Dashboard",
-      "Priority Support (24h)"
-    ],
-    popular: true,
-    buy: () => "growth" as const
-  },
-  {
-    name: "Enterprise",
-    price: "$4,999",
-    ideal: "Agencies & Corporations",
-    features: [
-      "Unlimited Custom Chatbots",
-      "Website Integration",
-      "Full Workflow Suite",
-      "Lead Capture & CRM Integration",
-      "Weekly Strategy Consults",
-      "Custom AI Prompts",
-      "Unlimited Languages",
-      "Scalable Backend/Database",
-      "Tailored AI Persona & Shadow Copywriting™",
-      "Custom KPI Analytics Dashboard",
-      "Dedicated Manager (Slack/Telegram)"
-    ],
-    buy: () => "enterprise" as const
-  }
-];
-
-const planWidget = {
-  starter: "https://nowpayments.io/embeds/payment-widget?iid=6247819398",
-  growth: "https://nowpayments.io/embeds/payment-widget?iid=6246398216",
-  enterprise: "https://nowpayments.io/embeds/payment-widget?iid=5098906610"
-};
-
-export default function PricingPage() {
-  const [modal, setModal] = useState(null as null | "starter" | "growth" | "enterprise");
+export default function Pricing() {
   return (
-    <section className="max-w-6xl mx-auto p-4 md:p-8 mt-8">
-      <h1 className="text-4xl font-bold text-green-400 mb-6 text-center">💸 GoConnect Pricing & Plans</h1>
-      <p className="text-center text-gray-300 mb-10">Built for businesses ready to scale with AI automation.</p>
-      <div className="flex flex-col md:flex-row gap-8 justify-center items-stretch">
-        {plans.map(plan => (
-          <div
-            key={plan.name}
-            className={`flex-1 bg-black/90 border-2 rounded-3xl shadow-xl flex flex-col items-center px-6 py-8 mb-4 md:mb-0 ${plan.popular ? "border-green-400 scale-105 z-10" : "border-green-900"}`}
-          >
-            {plan.popular && (
-              <div className="mb-3 px-4 py-1 bg-green-400 text-black font-bold rounded-full text-xs uppercase tracking-wider shadow">Most Popular</div>
-            )}
-            <h2 className="text-2xl font-bold text-green-300 mb-2">{plan.name}</h2>
-            <div className="text-3xl font-extrabold text-green-400 mb-2">{plan.price}</div>
-            <div className="text-sm text-gray-400 mb-4">{plan.ideal}</div>
-            <ul className="text-left text-gray-200 mb-6 space-y-2">
-              {plan.features.map(f => <li key={f} className="flex items-center gap-2"><span className="text-green-400">•</span> {f}</li>)}
+    <div className="min-h-screen pt-20 pb-16 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-16">
+          <h1 className="text-4xl sm:text-5xl font-bold text-white mb-6">
+            Simple, Transparent <span className="gradient-text">Pricing</span>
+          </h1>
+          <p className="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto">
+            Choose the perfect plan for your business. All plans include a 14-day free trial.
+          </p>
+        </div>
+
+        {/* Pricing Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+          {/* Starter Plan */}
+          <div className="feature-card relative">
+            <div className="text-center">
+              <h3 className="text-2xl font-bold text-white mb-4">Starter</h3>
+              <div className="mb-6">
+                <span className="text-4xl font-bold gradient-text">$29</span>
+                <span className="text-gray-400">/month</span>
+              </div>
+              <p className="text-gray-300 mb-8">
+                Perfect for small businesses getting started with AI automation
+              </p>
+            </div>
+
+            <ul className="space-y-4 mb-8">
+              <li className="flex items-center text-gray-300">
+                <span className="text-green-400 mr-3">✓</span>
+                <span>1 AI Chatbot</span>
+              </li>
+              <li className="flex items-center text-gray-300">
+                <span className="text-green-400 mr-3">✓</span>
+                <span>1,000 conversations/month</span>
+              </li>
+              <li className="flex items-center text-gray-300">
+                <span className="text-green-400 mr-3">✓</span>
+                <span>Basic integrations</span>
+              </li>
+              <li className="flex items-center text-gray-300">
+                <span className="text-green-400 mr-3">✓</span>
+                <span>Email support</span>
+              </li>
+              <li className="flex items-center text-gray-300">
+                <span className="text-green-400 mr-3">✓</span>
+                <span>Standard templates</span>
+              </li>
             </ul>
-            <button
-              className="bg-green-400 text-black font-bold px-6 py-3 rounded-xl shadow-lg hover:bg-green-300 transition text-base mt-auto"
-              onClick={() => setModal(plan.buy())}
-            >
-              Buy {plan.name}
-            </button>
+
+            <Link href="/contact" className="btn-secondary w-full text-center">
+              Start Free Trial
+            </Link>
           </div>
-        ))}
-      </div>
-      {/* Add-ons */}
-      <div className="mt-14">
-        <h3 className="text-2xl font-bold text-green-300 mb-2">💥 Add-Ons (A La Carte)</h3>
-        <ul className="list-disc list-inside text-gray-200 space-y-1">
-          <li>🔌 WhatsApp/Instagram Bot Integration – <span className="text-green-400">$750</span></li>
-          <li>🧠 Custom AI Prompt Pack – <span className="text-green-400">$299</span></li>
-          <li>📊 Real-Time Dashboard (Airtable/API) – <span className="text-green-400">$499</span></li>
-          <li>🌐 Multi-Site Deployment – <span className="text-green-400">$999</span></li>
-          <li>🎨 Branding & UI/UX Redesign – <span className="text-green-400">From $1,200</span></li>
-        </ul>
-        <div className="text-xs text-gray-400 mt-2">
-          <p>All bots are custom-built with secure APIs (no no-code junk)</p>
-          <p>Hosting can be included or deployed to your Vercel/Cloudflare/Render account</p>
-          <p>You own all code & data (self-hosted option available)</p>
+
+          {/* Professional Plan */}
+          <div className="feature-card relative border-2 border-blue-500">
+            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+              <span className="bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                Most Popular
+              </span>
+            </div>
+            
+            <div className="text-center">
+              <h3 className="text-2xl font-bold text-white mb-4">Professional</h3>
+              <div className="mb-6">
+                <span className="text-4xl font-bold gradient-text">$99</span>
+                <span className="text-gray-400">/month</span>
+              </div>
+              <p className="text-gray-300 mb-8">
+                Ideal for growing businesses with advanced automation needs
+              </p>
+            </div>
+
+            <ul className="space-y-4 mb-8">
+              <li className="flex items-center text-gray-300">
+                <span className="text-green-400 mr-3">✓</span>
+                <span>5 AI Chatbots</span>
+              </li>
+              <li className="flex items-center text-gray-300">
+                <span className="text-green-400 mr-3">✓</span>
+                <span>10,000 conversations/month</span>
+              </li>
+              <li className="flex items-center text-gray-300">
+                <span className="text-green-400 mr-3">✓</span>
+                <span>Advanced integrations</span>
+              </li>
+              <li className="flex items-center text-gray-300">
+                <span className="text-green-400 mr-3">✓</span>
+                <span>Priority support</span>
+              </li>
+              <li className="flex items-center text-gray-300">
+                <span className="text-green-400 mr-3">✓</span>
+                <span>Custom templates</span>
+              </li>
+              <li className="flex items-center text-gray-300">
+                <span className="text-green-400 mr-3">✓</span>
+                <span>Analytics dashboard</span>
+              </li>
+              <li className="flex items-center text-gray-300">
+                <span className="text-green-400 mr-3">✓</span>
+                <span>API access</span>
+              </li>
+            </ul>
+
+            <Link href="/contact" className="btn-primary w-full text-center">
+              Start Free Trial
+            </Link>
+          </div>
+
+          {/* Enterprise Plan */}
+          <div className="feature-card relative">
+            <div className="text-center">
+              <h3 className="text-2xl font-bold text-white mb-4">Enterprise</h3>
+              <div className="mb-6">
+                <span className="text-4xl font-bold gradient-text">Custom</span>
+              </div>
+              <p className="text-gray-300 mb-8">
+                Tailored solutions for large organizations with complex requirements
+              </p>
+            </div>
+
+            <ul className="space-y-4 mb-8">
+              <li className="flex items-center text-gray-300">
+                <span className="text-green-400 mr-3">✓</span>
+                <span>Unlimited AI Chatbots</span>
+              </li>
+              <li className="flex items-center text-gray-300">
+                <span className="text-green-400 mr-3">✓</span>
+                <span>Unlimited conversations</span>
+              </li>
+              <li className="flex items-center text-gray-300">
+                <span className="text-green-400 mr-3">✓</span>
+                <span>Custom integrations</span>
+              </li>
+              <li className="flex items-center text-gray-300">
+                <span className="text-green-400 mr-3">✓</span>
+                <span>24/7 dedicated support</span>
+              </li>
+              <li className="flex items-center text-gray-300">
+                <span className="text-green-400 mr-3">✓</span>
+                <span>Custom development</span>
+              </li>
+              <li className="flex items-center text-gray-300">
+                <span className="text-green-400 mr-3">✓</span>
+                <span>Advanced analytics</span>
+              </li>
+              <li className="flex items-center text-gray-300">
+                <span className="text-green-400 mr-3">✓</span>
+                <span>SLA guarantee</span>
+              </li>
+            </ul>
+
+            <Link href="/contact" className="btn-secondary w-full text-center">
+              Contact Sales
+            </Link>
+          </div>
+        </div>
+
+        {/* Features Comparison */}
+        <div className="mb-16">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-white mb-4">
+              Feature <span className="gradient-text">Comparison</span>
+            </h2>
+            <p className="text-gray-300">
+              See what's included in each plan
+            </p>
+          </div>
+
+          <div className="glass-card p-6 overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-gray-700">
+                  <th className="text-left py-4 px-4 text-white font-semibold">Feature</th>
+                  <th className="text-center py-4 px-4 text-white font-semibold">Starter</th>
+                  <th className="text-center py-4 px-4 text-white font-semibold">Professional</th>
+                  <th className="text-center py-4 px-4 text-white font-semibold">Enterprise</th>
+                </tr>
+              </thead>
+              <tbody className="space-y-4">
+                <tr className="border-b border-gray-800">
+                  <td className="py-4 px-4 text-gray-300">AI Chatbots</td>
+                  <td className="py-4 px-4 text-center text-gray-300">1</td>
+                  <td className="py-4 px-4 text-center text-gray-300">5</td>
+                  <td className="py-4 px-4 text-center text-gray-300">Unlimited</td>
+                </tr>
+                <tr className="border-b border-gray-800">
+                  <td className="py-4 px-4 text-gray-300">Conversations/Month</td>
+                  <td className="py-4 px-4 text-center text-gray-300">1,000</td>
+                  <td className="py-4 px-4 text-center text-gray-300">10,000</td>
+                  <td className="py-4 px-4 text-center text-gray-300">Unlimited</td>
+                </tr>
+                <tr className="border-b border-gray-800">
+                  <td className="py-4 px-4 text-gray-300">Support</td>
+                  <td className="py-4 px-4 text-center text-gray-300">Email</td>
+                  <td className="py-4 px-4 text-center text-gray-300">Priority</td>
+                  <td className="py-4 px-4 text-center text-gray-300">24/7 Dedicated</td>
+                </tr>
+                <tr className="border-b border-gray-800">
+                  <td className="py-4 px-4 text-gray-300">API Access</td>
+                  <td className="py-4 px-4 text-center text-gray-300">✗</td>
+                  <td className="py-4 px-4 text-center text-green-400">✓</td>
+                  <td className="py-4 px-4 text-center text-green-400">✓</td>
+                </tr>
+                <tr className="border-b border-gray-800">
+                  <td className="py-4 px-4 text-gray-300">Custom Development</td>
+                  <td className="py-4 px-4 text-center text-gray-300">✗</td>
+                  <td className="py-4 px-4 text-center text-gray-300">✗</td>
+                  <td className="py-4 px-4 text-center text-green-400">✓</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* FAQ Section */}
+        <div className="mb-16">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-white mb-4">
+              Pricing <span className="gradient-text">FAQ</span>
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="feature-card">
+              <h3 className="text-lg font-bold text-white mb-3">Can I change plans anytime?</h3>
+              <p className="text-gray-300">
+                Yes! You can upgrade or downgrade your plan at any time. Changes take effect immediately.
+              </p>
+            </div>
+
+            <div className="feature-card">
+              <h3 className="text-lg font-bold text-white mb-3">Is there a setup fee?</h3>
+              <p className="text-gray-300">
+                No setup fees for Starter and Professional plans. Enterprise plans may have custom setup costs.
+              </p>
+            </div>
+
+            <div className="feature-card">
+              <h3 className="text-lg font-bold text-white mb-3">What happens after the free trial?</h3>
+              <p className="text-gray-300">
+                After 14 days, you'll be charged for your chosen plan. You can cancel anytime during the trial.
+              </p>
+            </div>
+
+            <div className="feature-card">
+              <h3 className="text-lg font-bold text-white mb-3">Do you offer refunds?</h3>
+              <p className="text-gray-300">
+                We offer a 30-day money-back guarantee. If you're not satisfied, we'll refund your payment.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* CTA Section */}
+        <div className="text-center">
+          <div className="glass-card p-8 sm:p-12">
+            <h2 className="text-3xl font-bold text-white mb-6">
+              Ready to Get Started?
+            </h2>
+            <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
+              Start your 14-day free trial today. No credit card required. 
+              Experience the power of AI automation for your business.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link href="/contact" className="btn-primary w-full sm:w-auto">
+                Start Free Trial
+              </Link>
+              <Link href="/contact" className="btn-secondary w-full sm:w-auto">
+                Contact Sales
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
-      {/* Ultra Suite */}
-      <div className="mt-10 bg-green-900/20 border border-green-700 rounded-xl p-6 text-green-200">
-        <h3 className="text-xl font-bold mb-2">🎯 Want It Fully Done-For-You?</h3>
-        <p className="mb-2">Ask about our <span className="font-bold text-green-400">$10K Ultra Suite</span>, which includes:</p>
-        <ul className="list-disc list-inside space-y-1">
-          <li>Brand AI strategy</li>
-          <li>5 bots across all major platforms</li>
-          <li>Complete automation system</li>
-          <li>Copywriting, design, and analytics</li>
-          <li>1-month live optimization support</li>
-        </ul>
-      </div>
-      {/* Payment Modal */}
-      {modal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80">
-          <div className="bg-gray-900 rounded-2xl shadow-2xl p-4 max-w-full w-[420px] relative">
-            <button
-              className="absolute top-2 right-2 text-gray-400 hover:text-green-400 text-2xl font-bold"
-              onClick={() => setModal(null)}
-              aria-label="Close payment modal"
-            >
-              &times;
-            </button>
-            <iframe src={planWidget[modal]} width="410" height="696" frameBorder="0" scrolling="no" style={{overflowY: 'hidden', borderRadius: '1rem'}} title={`Buy ${modal.charAt(0).toUpperCase() + modal.slice(1)} Plan Payment Widget`}></iframe>
-          </div>
-        </div>
-      )}
-      <Script id="google-analytics" strategy="afterInteractive">
-        {`
-          (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-          })(window,document,'script','dataLayer','GTM-XXXXXXX');
-        `}
-      </Script>
-    </section>
-  );
+    </div>
+  )
 } 

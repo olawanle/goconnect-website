@@ -1,35 +1,190 @@
 @import "tailwindcss";
 
+@layer utilities {
+  .animate-bounce-slow {
+    animation: bounce 2s infinite;
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 1s ease-out;
+  }
+  
+  .animate-fade-in-delay {
+    animation: fadeIn 1s ease-out 0.3s both;
+  }
+  
+  .animate-fade-in-delay-2 {
+    animation: fadeIn 1s ease-out 0.6s both;
+  }
+  
+  .animate-fade-in-delay-3 {
+    animation: fadeIn 1s ease-out 0.9s both;
+  }
+  
+  @keyframes bounce {
+    0%, 20%, 53%, 80%, 100% {
+      transform: translate3d(0,0,0);
+    }
+    40%, 43% {
+      transform: translate3d(0, -30px, 0);
+    }
+    70% {
+      transform: translate3d(0, -15px, 0);
+    }
+    90% {
+      transform: translate3d(0, -4px, 0);
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Enhanced hover effects */
+  .hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Gradient text */
+  .gradient-text {
+    background: linear-gradient(135deg, #10b981, #059669);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* Glass morphism effect */
+  .glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #1a1a1a;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #10b981;
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #059669;
+  }
+}
+
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --accent: #22ff88;
-  --accent-bg: #1a2e1a;
-  --card-bg: #18181b;
-  --border: #222;
-  --shadow: 0 2px 16px 0 rgba(34,255,136,0.12);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
 }
 
-@keyframes fade-in {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: none; }
-}
-.animate-fade-in {
-  animation: fade-in 0.2s ease;
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
 }
 
-@keyframes bounce-slow {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+/* Minimal, professional design helpers */
+.section {
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
 }
-.animate-bounce-slow {
-  animation: bounce-slow 2.5s infinite;
+.section-tight {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
 }
+.section-gradient {
+  background: linear-gradient(to bottom, #000, #0b0f0e 60%, #000);
+}
+.section-container {
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+.heading-xl {
+  font-size: 2rem;
+  line-height: 1.2;
+  font-weight: 800;
+}
+@media (min-width: 768px) {
+  .heading-xl { font-size: 3rem; }
+}
+.subheading {
+  color: #cbd5e1;
+}
+.card {
+  background: #0f1413;
+  border: 1px solid #1f2937;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+}
+.card:hover { border-color: #334155; }
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  background: #101615;
+  border: 1px solid #1f2937;
+  color: #d1d5db;
+  font-size: 0.75rem;
+}
+.btn-primary {
+  background: #22c55e;
+  color: #000;
+  font-weight: 600;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.75rem;
+}
+.btn-primary:hover { background: #34d399; }
+.btn-secondary {
+  border: 1px solid #374151;
+  color: #e5e7eb;
+  font-weight: 600;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.75rem;
+}
+.btn-secondary:hover { border-color: #10b981; color: #a7f3d0; } 
