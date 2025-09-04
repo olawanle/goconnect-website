@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import Link from 'next/link'
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -39,7 +38,7 @@ export default function Contact() {
             Get in <span className="gradient-text">Touch</span>
           </h1>
           <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto">
-            Ready to transform your business with AI automation? Let's start the conversation.
+            Ready to transform your business with AI automation? Let&apos;s start the conversation.
           </p>
         </div>
 
@@ -130,7 +129,7 @@ export default function Contact() {
               <div>
                 <h2 className="text-2xl font-bold text-white mb-6">Contact Information</h2>
                 <p className="text-gray-300 mb-8">
-                  We're here to help you succeed. Reach out to us through any of these channels.
+                  We&apos;re here to help you succeed. Reach out to us through any of these channels.
                 </p>
               </div>
 

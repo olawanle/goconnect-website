@@ -167,7 +167,7 @@ export default function Pricing() {
               Feature <span className="gradient-text">Comparison</span>
             </h2>
             <p className="text-gray-300">
-              See what's included in each plan
+              See what&apos;s included in each plan
             </p>
           </div>
 
@@ -243,14 +243,14 @@ export default function Pricing() {
             <div className="feature-card">
               <h3 className="text-lg font-bold text-white mb-3">What happens after the free trial?</h3>
               <p className="text-gray-300">
-                After 14 days, you'll be charged for your chosen plan. You can cancel anytime during the trial.
+                After 14 days, you&apos;ll be charged for your chosen plan. You can cancel anytime during the trial.
               </p>
             </div>
 
             <div className="feature-card">
               <h3 className="text-lg font-bold text-white mb-3">Do you offer refunds?</h3>
               <p className="text-gray-300">
-                We offer a 30-day money-back guarantee. If you're not satisfied, we'll refund your payment.
+                We offer a 30-day money-back guarantee. If you&apos;re not satisfied, we&apos;ll refund your payment.
               </p>
             </div>
           </div>

@@ -9,7 +9,7 @@ export default function About() {
             About <span className="gradient-text">GoConnect</span>
           </h1>
           <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto">
-            We're revolutionizing business automation through cutting-edge AI technology
+            We&apos;re revolutionizing business automation through cutting-edge AI technology
           </p>
         </div>
 
@@ -21,7 +21,7 @@ export default function About() {
               Our mission is to democratize AI technology and make it accessible to businesses of all sizes.
             </p>
             <p className="text-gray-300 leading-relaxed">
-              We're committed to building intelligent solutions that not only automate tasks but also 
+              We&apos;re committed to building intelligent solutions that not only automate tasks but also 
               enhance human capabilities and drive meaningful business growth.
             </p>
           </div>
@@ -45,7 +45,7 @@ export default function About() {
               <div className="text-4xl mb-4">💡</div>
               <h3 className="text-xl font-bold text-white mb-3">Innovation</h3>
               <p className="text-gray-300">
-                We constantly push the boundaries of what's possible with AI technology
+                We constantly push the boundaries of what&apos;s possible with AI technology
               </p>
             </div>
             
@@ -61,7 +61,7 @@ export default function About() {
               <div className="text-4xl mb-4">🔒</div>
               <h3 className="text-xl font-bold text-white mb-3">Security</h3>
               <p className="text-gray-300">
-                We prioritize the security and privacy of our clients' data above all else
+                We prioritize the security and privacy of our clients&apos; data above all else
               </p>
             </div>
           </div>
@@ -73,7 +73,7 @@ export default function About() {
               Ready to Join the Future?
             </h2>
             <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
-              Be part of the AI revolution. Let's build something amazing together.
+              Be part of the AI revolution. Let&apos;s build something amazing together.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link href="/contact" className="btn-primary w-full sm:w-auto">
