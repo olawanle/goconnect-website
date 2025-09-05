@@ -129,7 +129,7 @@ export default function Contact() {
               <div>
                 <h2 className="text-2xl font-bold text-white mb-6">Contact Information</h2>
                 <p className="text-gray-300 mb-8">
-                  We&apos;re here to help you succeed. Reach out to us through any of these channels.
+                  We&apos;re here to help you succeed. Reach out via email or social.
                 </p>
               </div>
 
@@ -145,23 +145,6 @@ export default function Contact() {
                       className="text-gray-300 hover:text-white transition-colors"
                     >
                       goconnect@goconnect.space
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-2xl">📱</span>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-white mb-2">WhatsApp</h3>
-                    <a 
-                      href="https://wa.me/447488813254" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-gray-300 hover:text-white transition-colors"
-                    >
-                      +44 748 881 3254
                     </a>
                   </div>
                 </div>
@@ -188,14 +171,6 @@ export default function Contact() {
                         className="text-gray-300 hover:text-white transition-colors"
                       >
                         X (Twitter)
-                      </a>
-                      <a 
-                        href="https://www.instagram.com/goconnect1" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="text-gray-300 hover:text-white transition-colors"
-                      >
-                        Instagram
                       </a>
                     </div>
                   </div>
