@@ -136,9 +136,7 @@ export default function Services() {
               <Link href="/contact" className="btn-primary w-full sm:w-auto">
                 Free Consultation
               </Link>
-              <Link href="/pricing" className="btn-secondary w-full sm:w-auto">
-                View Pricing
-              </Link>
+              
             </div>
           </div>
         </div>

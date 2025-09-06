@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import emailjs from '@emailjs/browser'
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -10,17 +11,43 @@ export default function Contact() {
     message: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [status, setStatus] = useState<string | null>(null)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    
-    setIsSubmitting(false)
-    alert('Thank you for your message! We\'ll get back to you soon.')
-    setFormData({ name: '', email: '', company: '', message: '' })
+
+    try {
+      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID
+      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID
+      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
+
+      if (serviceId && templateId && publicKey) {
+        await emailjs.send(
+          serviceId,
+          templateId,
+          {
+            from_name: formData.name,
+            from_email: formData.email,
+            company: formData.company || 'N/A',
+            message: formData.message,
+          },
+          { publicKey }
+        )
+        setStatus('Thanks! Your message has been sent.')
+        setFormData({ name: '', email: '', company: '', message: '' })
+      } else {
+        const subject = encodeURIComponent(`New inquiry from ${formData.name}`)
+        const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\nCompany: ${formData.company}\n\n${formData.message}`)
+        window.location.href = `mailto:goconnect@goconnect.space?subject=${subject}&body=${body}`
+        setStatus('Opening your email app to send the message…')
+      }
+    } catch (err) {
+      console.error(err)
+      setStatus('Sorry, something went wrong. Please try again or email goconnect@goconnect.space.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -49,6 +76,11 @@ export default function Contact() {
               <h2 className="text-2xl font-bold text-white mb-6">Send us a Message</h2>
               
               <form onSubmit={handleSubmit} className="space-y-6">
+                {status && (
+                  <div className="text-sm text-gray-200 bg-emerald-500/10 border border-emerald-600/30 rounded-md p-3" aria-live="polite">
+                    {status}
+                  </div>
+                )}
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
                     Full Name *
@@ -156,14 +188,6 @@ export default function Contact() {
                   <div>
                     <h3 className="text-lg font-semibold text-white mb-2">Social Media</h3>
                     <div className="flex space-x-4">
-                      <a 
-                        href="https://www.facebook.com/goconnect234" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="text-gray-300 hover:text-white transition-colors"
-                      >
-                        Facebook
-                      </a>
                       <a 
                         href="https://x.com/goconnect234" 
                         target="_blank" 

@@ -1,56 +1,90 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import Reveal from './components/Reveal'
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen text-white">
       {/* Hero */}
-      <section className="section section-gradient">
-        <div className="section-container flex flex-col items-center text-center gap-6">
-          <Image src="/logo.png" alt="GoConnect Logo" width={84} height={84} className="opacity-95" priority />
-          <h1 className="heading-xl">
-            Web Developer + AI Automation
-          </h1>
-          <p className="text-gray-300 max-w-2xl">
-            I design and ship production‑ready websites, dashboards, and AI assistants. Clean code, high performance, and measurable business results.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3">
-            <Link href="#work"><button className="btn-primary">See Work</button></Link>
-            <Link href="/contact"><button className="btn-secondary">Hire Me</button></Link>
+      <section className="relative overflow-hidden section section-colorful bg-grid">
+        <div className="relative section-container flex flex-col items-center text-center gap-6">
+          <span className="blob w-64 h-64 left-4 top-8 bg-emerald-500/25" aria-hidden="true" />
+          <span className="blob w-72 h-72 right-6 top-20 bg-sky-500/20" style={{ animationDelay: '1.2s' }} aria-hidden="true" />
+          <span className="blob w-52 h-52 left-1/2 -bottom-6 bg-pink-500/20" style={{ animationDelay: '2.1s' }} aria-hidden="true" />
+
+          <Reveal>
+            <Image src="/logo.png" alt="GoConnect Logo" width={84} height={84} className="opacity-95 icon-float" priority />
+          </Reveal>
+          <Reveal className="animate-fade-in">
+            <h1 className="heading-xl gradient-text-neo">
+              Web Developer + AI Automation
+            </h1>
+          </Reveal>
+          <Reveal className="max-w-2xl">
+            <p className="text-gray-200">
+              I design and ship production‑ready websites, dashboards, and AI assistants. Clean code, high performance, and measurable business results.
+            </p>
+          </Reveal>
+          <Reveal>
+            <div className="inline-flex flex-col sm:flex-row gap-3 bg-black/40 backdrop-blur-md p-2 rounded-xl ring-1 ring-white/10 shadow-2xl">
+              <Link href="#work"><button className="btn-primary btn-shimmer">See Work</button></Link>
+              <Link href="/contact"><button className="btn-secondary border-pulse">Hire Me</button></Link>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Tech marquee */}
+      <section className="section">
+        <div className="section-container">
+          <div className="marquee">
+            <div className="marquee-track">
+              {['Next.js','React','Node.js','Tailwind','Botpress','OpenAI','Vercel','EmailJS'].concat(['Next.js','React','Node.js','Tailwind','Botpress','OpenAI','Vercel','EmailJS']).map((t, i) => (
+                <span key={i} className="badge">{t}</span>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* What I Build */}
-      <section className="section">
+      <section className="section section-colorful">
         <div className="section-container">
           <div className="text-center mb-8">
-            <h2 className="heading-xl">What I Build</h2>
-            <p className="subheading max-w-3xl mx-auto">Production‑grade AI chatbots and modern web apps that look great and perform even better.</p>
+            <Reveal>
+              <h2 className="heading-xl gradient-text-neo">What I Build</h2>
+            </Reveal>
+            <Reveal className="max-w-3xl mx-auto">
+              <p className="subheading">Production‑grade AI chatbots and modern web apps that look great and perform even better.</p>
+            </Reveal>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div className="card">
-              <div className="flex items-center gap-3 mb-2"><span className="text-2xl">🤖</span><h3 className="text-xl font-bold">AI Chatbots & Automation</h3></div>
-              <p className="text-gray-300 mb-4">Lead qualification, support, and automation using Botpress, OpenAI, and RAG pipelines.</p>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-gray-200 text-sm">
-                <li className="flex items-center gap-2"><span className="text-green-400">•</span> Lead capture & CRM</li>
-                <li className="flex items-center gap-2"><span className="text-green-400">•</span> Web & WhatsApp</li>
-                <li className="flex items-center gap-2"><span className="text-green-400">•</span> Knowledge base / RAG</li>
-                <li className="flex items-center gap-2"><span className="text-green-400">•</span> Analytics & testing</li>
-              </ul>
-            </div>
+            <Reveal>
+              <div className="card tilt">
+                <div className="flex items-center gap-3 mb-2"><span className="text-2xl spin-slow">🤖</span><h3 className="text-xl font-bold">AI Chatbots & Automation</h3></div>
+                <p className="text-gray-300 mb-4">Lead qualification, support, and automation using Botpress, OpenAI, and RAG pipelines.</p>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-gray-200 text-sm">
+                  <li className="flex items-center gap-2"><span className="text-green-400">•</span> Lead capture & CRM</li>
+                  <li className="flex items-center gap-2"><span className="text-green-400">•</span> Web & WhatsApp</li>
+                  <li className="flex items-center gap-2"><span className="text-green-400">•</span> Knowledge base / RAG</li>
+                  <li className="flex items-center gap-2"><span className="text-green-400">•</span> Analytics & testing</li>
+                </ul>
+              </div>
+            </Reveal>
 
-            <div className="card">
-              <div className="flex items-center gap-3 mb-2"><span className="text-2xl">💻</span><h3 className="text-xl font-bold">Web Development</h3></div>
-              <p className="text-gray-300 mb-4">High‑performance websites and dashboards built with Next.js and modern tooling.</p>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-gray-200 text-sm">
-                <li className="flex items-center gap-2"><span className="text-green-400">•</span> Landing pages & SaaS</li>
-                <li className="flex items-center gap-2"><span className="text-green-400">•</span> API design & integrations</li>
-                <li className="flex items-center gap-2"><span className="text-green-400">•</span> Accessibility & SEO</li>
-                <li className="flex items-center gap-2"><span className="text-green-400">•</span> CI/CD & analytics</li>
-              </ul>
-            </div>
+            <Reveal>
+              <div className="card tilt">
+                <div className="flex items-center gap-3 mb-2"><span className="text-2xl icon-float">💻</span><h3 className="text-xl font-bold">Web Development</h3></div>
+                <p className="text-gray-300 mb-4">High‑performance websites and dashboards built with Next.js and modern tooling.</p>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-gray-200 text-sm">
+                  <li className="flex items-center gap-2"><span className="text-green-400">•</span> Landing pages & SaaS</li>
+                  <li className="flex items-center gap-2"><span className="text-green-400">•</span> API design & integrations</li>
+                  <li className="flex items-center gap-2"><span className="text-green-400">•</span> Accessibility & SEO</li>
+                  <li className="flex items-center gap-2"><span className="text-green-400">•</span> CI/CD & analytics</li>
+                </ul>
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -365,27 +399,21 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Tech */}
-      <section className="section section-gradient">
-        <div className="section-container">
-          <h2 className="heading-xl text-center mb-6">Tech I Use</h2>
-          <div className="flex flex-wrap justify-center gap-3">
-            {['Next.js', 'React', 'Node.js', 'Tailwind CSS', 'Botpress', 'OpenAI', 'EmailJS', 'Vercel'].map((t, i) => (
-              <span key={i} className="badge">{t}</span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="section">
+      {/* CTA */}
+      <section className="section section-colorful">
         <div className="section-container text-center">
-          <h2 className="heading-xl mb-4">Let’s build something great.</h2>
-          <p className="subheading max-w-2xl mx-auto mb-6">Need a production‑ready website or an AI assistant? I can help you ship fast without cutting corners.</p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link href="/contact"><button className="btn-primary">Hire Me</button></Link>
-            <Link href="#work"><button className="btn-secondary">View Projects</button></Link>
-          </div>
+          <Reveal>
+            <h2 className="heading-xl mb-4 gradient-text-neo">Let’s build something great.</h2>
+          </Reveal>
+          <Reveal className="max-w-2xl mx-auto">
+            <p className="subheading">Need a production‑ready website or an AI assistant? I can help you ship fast without cutting corners.</p>
+          </Reveal>
+          <Reveal>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Link href="/contact"><button className="btn-primary btn-shimmer">Hire Me</button></Link>
+              <Link href="#work"><button className="btn-secondary border-pulse">View Projects</button></Link>
+            </div>
+          </Reveal>
         </div>
       </section>
     </div>

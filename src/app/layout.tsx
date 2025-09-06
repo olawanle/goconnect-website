@@ -56,6 +56,7 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://cdn.botpress.cloud" />
       </head>
       <body className={`${geistSans.variable} bg-black text-white min-h-screen`}>
+        <div aria-hidden="true" className="mesh-bg" />
         {/* Google Analytics */}
         <Script
           id="google-analytics"
@@ -83,7 +84,7 @@ export default function RootLayout({
             <div className="flex items-center gap-4 text-sm md:text-base overflow-x-auto">
               <Link href="/about" className="hover:text-green-300 transition">About</Link>
               <Link href="/services" className="hover:text-green-300 transition">Services</Link>
-              <Link href="/pricing" className="hover:text-green-300 transition">Pricing</Link>
+              
               <Link href="/#work" className="hover:text-green-300 transition">Work</Link>
               <Link href="/contact" className="btn-secondary">Contact</Link>
               {/* Big colorful social icons */}
@@ -130,7 +131,7 @@ export default function RootLayout({
               <span className="font-semibold text-white mb-1">Links</span>
               <Link href="/about" className="hover:text-green-300 transition">About</Link>
               <Link href="/services" className="hover:text-green-300 transition">Services</Link>
-              <Link href="/pricing" className="hover:text-green-300 transition">Pricing</Link>
+              
               <Link href="/#work" className="hover:text-green-300 transition">Work</Link>
               <Link href="/contact" className="hover:text-green-300 transition">Contact</Link>
             </div>
