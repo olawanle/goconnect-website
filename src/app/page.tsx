@@ -183,8 +183,8 @@ export default function Home() {
                   <h2 className="heading-xl mb-2">Selected Work</h2>
                   <p className="subheading">Recent projects in AI and web development</p>
                 </div>
-                <Link href="/work" className="hidden md:flex items-center gap-2 text-white hover:text-emerald-400 transition pb-2 border-b border-white/20 hover:border-emerald-400">
-                  View all projects
+                <Link href="/work" className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-black font-bold px-6 py-3 rounded-full transition-all transform hover:scale-105 shadow-lg shadow-emerald-500/20">
+                  View all projects <span className="text-xl">→</span>
                 </Link>
               </Reveal>
 
