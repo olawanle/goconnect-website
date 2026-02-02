@@ -71,31 +71,34 @@ export default function RootLayout({
             `,
           }}
         />
-        
+
         {/* Navigation */}
-        <nav className="sticky top-0 z-50 bg-black/80 backdrop-blur border-b border-gray-900">
-          <div className="max-w-6xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between">
-          <Link href="/">
-            <div className="flex items-center gap-2">
-                <Image src="/logo.png" alt="GoConnect Logo" width={40} height={40} priority />
-                <span className="text-xl font-bold tracking-tight text-white">GOCONNECT</span>
+        {/* Floating Navigation */}
+        <nav className="fixed top-6 left-4 right-4 md:left-1/2 md:-translate-x-1/2 md:max-w-4xl z-[999] rounded-2xl liquid-glass border-white/10">
+          <div className="px-4 md:px-6 py-3 flex items-center justify-between">
+            <Link href="/">
+              <div className="flex items-center gap-2">
+                <Image src="/logo.png" alt="GoConnect Logo" width={32} height={32} priority />
+                <span className="text-lg font-bold tracking-tight text-white/90">GOCONNECT</span>
               </div>
             </Link>
-            <div className="flex items-center gap-4 text-sm md:text-base overflow-x-auto">
-              <Link href="/about" className="hover:text-green-300 transition">About</Link>
-              <Link href="/services" className="hover:text-green-300 transition">Services</Link>
-              
-              <Link href="/#work" className="hover:text-green-300 transition">Work</Link>
-              <Link href="/contact" className="btn-secondary">Contact</Link>
-              {/* Big colorful social icons */}
-              <a href="https://x.com/goconnect234" aria-label="X (Twitter)" target="_blank" rel="noopener noreferrer" className="p-1 rounded-lg text-sky-400 hover:text-white hover:bg-sky-500/20 transition">
-                <svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24"><path d="M17.53 2.47 12 10.07 6.47 2.47H2.47l7.07 9.46L2.47 21.53h4l5.53-7.6 5.53 7.6h4l-7.07-9.6 7.07-9.46z"></path></svg>
-              </a>
-              <a href="https://github.com/olawanle" aria-label="GitHub" target="_blank" rel="noopener noreferrer" className="p-1 rounded-lg text-violet-400 hover:text-white hover:bg-violet-500/20 transition">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.009-.868-.014-1.703-2.782.604-3.369-1.341-3.369-1.341-.454-1.155-1.11-1.464-1.11-1.464-.908-.62.069-.607.069-.607 1.004.07 1.532 1.032 1.532 1.032.892 1.53 2.341 1.088 2.91.833.091-.647.35-1.088.636-1.338-2.221-.253-4.555-1.112-4.555-4.945 0-1.092.39-1.986 1.029-2.686-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.748-1.026 2.748-1.026.546 1.378.203 2.397.1 2.65.64.7 1.028 1.594 1.028 2.686 0 3.842-2.337 4.688-4.565 4.936.359.31.679.921.679 1.856 0 1.338-.012 2.419-.012 2.75 0 .269.18.58.688.481C19.138 20.194 22 16.44 22 12.017 22 6.484 17.523 2 12 2z" clipRule="evenodd"/>
-                </svg>
-              </a>
+            <div className="flex items-center gap-4 text-sm md:text-base">
+              <Link href="/about" className="hover:text-green-300 transition-colors">About</Link>
+              <Link href="/services" className="hover:text-green-300 transition-colors">Services</Link>
+
+              <Link href="/#work" className="hover:text-green-300 transition-colors">Work</Link>
+              <Link href="/contact" className="hidden sm:block btn-secondary text-xs px-4 py-2 !rounded-lg">Contact</Link>
+
+              {/* Mobile menu icon placeholder (simplified for desktop-first) */}
+              <div className="flex gap-2 sm:hidden">
+                <Link href="/contact" className="text-green-400">Hire</Link>
+              </div>
+
+              {/* Socials compacted for floating nav */}
+              <div className="hidden md:flex gap-2 border-l border-white/10 pl-4 ml-2">
+                <a href="https://x.com/goconnect234" aria-label="X" target="_blank" rel="noopener noreferrer" className="text-sky-400/80 hover:text-white transition"><svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M17.53 2.47 12 10.07 6.47 2.47H2.47l7.07 9.46L2.47 21.53h4l5.53-7.6 5.53 7.6h4l-7.07-9.6 7.07-9.46z"></path></svg></a>
+                <a href="https://github.com/olawanle" aria-label="GitHub" target="_blank" rel="noopener noreferrer" className="text-violet-400/80 hover:text-white transition"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.009-.868-.014-1.703-2.782.604-3.369-1.341-3.369-1.341-.454-1.155-1.11-1.464-1.11-1.464-.908-.62.069-.607.069-.607 1.004.07 1.532 1.032 1.532 1.032.892 1.53 2.341 1.088 2.91.833.091-.647.35-1.088.636-1.338-2.221-.253-4.555-1.112-4.555-4.945 0-1.092.39-1.986 1.029-2.686-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.748-1.026 2.748-1.026.546 1.378.203 2.397.1 2.65.64.7 1.028 1.594 1.028 2.686 0 3.842-2.337 4.688-4.565 4.936.359.31.679.921.679 1.856 0 1.338-.012 2.419-.012 2.75 0 .269.18.58.688.481C19.138 20.194 22 16.44 22 12.017 22 6.484 17.523 2 12 2z" /></svg></a>
+              </div>
             </div>
           </div>
         </nav>
@@ -105,7 +108,7 @@ export default function RootLayout({
         </main>
 
         {/* Footer */}
-        <footer className="mt-12 border-t border-gray-900 text-gray-300">
+        <footer className="mt-12 border-t border-gray-900 text-gray-300 relative z-10 bg-black">
           <div className="max-w-6xl mx-auto px-4 md:px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
               <div className="flex items-center gap-2 mb-2">
@@ -121,7 +124,7 @@ export default function RootLayout({
                 </a>
                 <a href="https://github.com/olawanle" aria-label="GitHub" target="_blank" rel="noopener noreferrer" className="hover:text-green-300 transition">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                    <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.009-.868-.014-1.703-2.782.604-3.369-1.341-3.369-1.341-.454-1.155-1.11-1.464-1.11-1.464-.908-.62.069-.607.069-.607 1.004.07 1.532 1.032 1.532 1.032.892 1.53 2.341 1.088 2.91.833.091-.647.35-1.088.636-1.338-2.221-.253-4.555-1.112-4.555-4.945 0-1.092.39-1.986 1.029-2.686-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.748-1.026 2.748-1.026.546 1.378.203 2.397.1 2.65.64.7 1.028 1.594 1.028 2.686 0 3.842-2.337 4.688-4.565 4.936.359.31.679.921.679 1.856 0 1.338-.012 2.419-.012 2.75 0 .269.18.58.688.481C19.138 20.194 22 16.44 22 12.017 22 6.484 17.523 2 12 2z" clipRule="evenodd"/>
+                    <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.009-.868-.014-1.703-2.782.604-3.369-1.341-3.369-1.341-.454-1.155-1.11-1.464-1.11-1.464-.908-.62.069-.607.069-.607 1.004.07 1.532 1.032 1.532 1.032.892 1.53 2.341 1.088 2.91.833.091-.647.35-1.088.636-1.338-2.221-.253-4.555-1.112-4.555-4.945 0-1.092.39-1.986 1.029-2.686-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.748-1.026 2.748-1.026.546 1.378.203 2.397.1 2.65.64.7 1.028 1.594 1.028 2.686 0 3.842-2.337 4.688-4.565 4.936.359.31.679.921.679 1.856 0 1.338-.012 2.419-.012 2.75 0 .269.18.58.688.481C19.138 20.194 22 16.44 22 12.017 22 6.484 17.523 2 12 2z" clipRule="evenodd" />
                   </svg>
                 </a>
               </div>
@@ -131,11 +134,11 @@ export default function RootLayout({
               <span className="font-semibold text-white mb-1">Links</span>
               <Link href="/about" className="hover:text-green-300 transition">About</Link>
               <Link href="/services" className="hover:text-green-300 transition">Services</Link>
-              
+
               <Link href="/#work" className="hover:text-green-300 transition">Work</Link>
               <Link href="/contact" className="hover:text-green-300 transition">Contact</Link>
             </div>
-            
+
             <div className="flex flex-col gap-2 text-sm">
               <span className="font-semibold text-white mb-1">Contact</span>
               <span>

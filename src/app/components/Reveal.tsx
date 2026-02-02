@@ -1,38 +1,39 @@
 "use client"
 
-import React from "react"
+import React, { useEffect, useRef } from "react"
+import { motion, useInView, useAnimation } from "framer-motion"
 
 interface RevealProps {
   children: React.ReactNode
+  width?: "fit-content" | "100%"
   className?: string
-  rootMargin?: string
+  delay?: number
 }
 
-export default function Reveal({ children, className = "", rootMargin = "-10% 0px -10% 0px" }: RevealProps) {
-  const ref = React.useRef<HTMLDivElement | null>(null)
-  const [shown, setShown] = React.useState(false)
+export default function Reveal({ children, width = "fit-content", className = "", delay = 0.25 }: RevealProps) {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true })
+  const mainControls = useAnimation()
 
-  React.useEffect(() => {
-    if (!ref.current) return
-    const el = ref.current
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setShown(true)
-            observer.unobserve(entry.target)
-          }
-        })
-      },
-      { root: null, rootMargin, threshold: 0.15 }
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [rootMargin])
+  useEffect(() => {
+    if (isInView) {
+      mainControls.start("visible")
+    }
+  }, [isInView, mainControls])
 
   return (
-    <div ref={ref} className={`reveal-on-scroll ${shown ? "revealed" : ""} ${className}`}>
-      {children}
+    <div ref={ref} style={{ position: "relative", width }} className={className}>
+      <motion.div
+        variants={{
+          hidden: { opacity: 0, y: 75, filter: "blur(10px)" },
+          visible: { opacity: 1, y: 0, filter: "blur(0px)" },
+        }}
+        initial="hidden"
+        animate={mainControls}
+        transition={{ duration: 0.8, delay: delay, ease: [0.25, 0.25, 0, 1] }} // Custom easing for premium feel
+      >
+        {children}
+      </motion.div>
     </div>
   )
 }
