@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     description: 'Supercharge your business with next-gen AI chatbots and automation.',
     images: ['/logo.png'],
   },
-  viewport: 'width=device-width, initial-scale=1',
+  viewport: 'width=1366',
   themeColor: '#000000',
 }
 
