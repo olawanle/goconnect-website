@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Reveal from './components/Reveal'
 import CosmicBackground from './components/CosmicBackground'
 import SplashScreen from './components/SplashScreen'
-import ThreeScene from './components/ThreeScene'
+// import ThreeScene from './components/ThreeScene'
 import ServiceIcon3D from './components/ServiceIcon3D'
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -30,7 +30,7 @@ export default function Home() {
           {/* Hero */}
           <section className="relative overflow-hidden section min-h-[90vh] flex items-center justify-center">
             <CosmicBackground />
-            <ThreeScene />
+            {/* <ThreeScene /> - Removed for performance on mobile */}
 
             {/* Overlay gradient to ensure text readability */}
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black pointer-events-none z-0" />
