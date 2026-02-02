@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Geist } from 'next/font/google'
 import "./globals.css"
 import Image from 'next/image'
@@ -10,6 +10,13 @@ const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 })
+
+export const viewport: Viewport = {
+  width: 1366,
+  initialScale: 0.1, // Allow zooming out to fit
+  maximumScale: 5,
+  userScalable: true,
+}
 
 export const metadata: Metadata = {
   title: 'GoConnect - AI Automation Reimagined',
@@ -41,7 +48,6 @@ export const metadata: Metadata = {
     description: 'Supercharge your business with next-gen AI chatbots and automation.',
     images: ['/logo.png'],
   },
-  viewport: 'width=1366',
   themeColor: '#000000',
 }
 
