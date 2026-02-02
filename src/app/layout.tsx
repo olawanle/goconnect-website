@@ -12,7 +12,7 @@ const geistSans = Geist({
 })
 
 export const viewport: Viewport = {
-  width: 1366,
+  width: 1024,
   initialScale: 0.1, // Allow zooming out to fit
   maximumScale: 5,
   userScalable: true,
