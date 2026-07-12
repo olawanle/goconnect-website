@@ -68,7 +68,7 @@ function ProjectCard({
 }) {
   return (
     <Card
-      className="work-card glass-card group overflow-hidden border-0 bg-transparent"
+      className="work-card glass-card liquid-glass group overflow-hidden border-0 bg-transparent"
       style={{ animationDelay: `${index * 0.07}s` }}
     >
       <a

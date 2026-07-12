@@ -9,6 +9,9 @@ export default {
       pattern:
         /^(bg|text|border)-gc-(black|dark2?|dark3|gray|green|text|text-dim|text-dimmer)(\/\d+)?$/,
     },
+    "border-border",
+    "bg-background",
+    "text-foreground",
   ],
   theme: {
     container: {

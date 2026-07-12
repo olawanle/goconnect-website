@@ -42,7 +42,7 @@ function TeamCard({
 
   return (
     <div ref={ref} className={`reveal reveal-delay-${delay}`}>
-      <Card className="glass-card border-0 bg-transparent">
+      <Card className="glass-card liquid-glass border-0 bg-transparent">
         <CardHeader className="space-y-3 p-6 pb-0">
           <div className="team-avatar liquid-glass flex size-12 items-center justify-center rounded-full">
             <span className="font-display text-sm text-gc-green">GC</span>

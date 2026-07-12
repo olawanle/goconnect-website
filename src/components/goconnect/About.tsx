@@ -34,7 +34,7 @@ export function About() {
             </p>
             <div className="about-stats grid grid-cols-2 gap-4 sm:grid-cols-4">
               {about.stats.map((stat) => (
-                <div key={stat.label} className="stat-card text-center sm:text-left">
+                <div key={stat.label} className="stat-card liquid-glass text-center sm:text-left">
                   <div className="stat-number font-display text-4xl text-gc-green">
                     {stat.value}
                   </div>

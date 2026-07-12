@@ -24,7 +24,7 @@ export function Services() {
           className="services-grid reveal reveal-delay-1 grid gap-6 md:grid-cols-2"
         >
           {services.map((service) => (
-            <Card key={service.name} className="glass-card border-0 bg-transparent">
+            <Card key={service.name} className="glass-card liquid-glass border-0 bg-transparent">
               <CardHeader className="space-y-3 p-6 pb-0">
                 <div className="service-card-number font-mono text-[0.65rem] text-gc-text-dimmer">
                   {service.number}

@@ -29,7 +29,7 @@ export function Loader() {
           height={80}
         />
       </div>
-      <div className="loader-bar" />
+      <div className="loader-bar liquid-glass" />
       <div className="loader-text">{loader.text}</div>
     </div>
   )

@@ -9,7 +9,7 @@ export function Marquee() {
     <div className="relative z-10 overflow-hidden border-y border-gc-green/5 py-4" aria-hidden="true">
       <div className="marquee-track">
         {items.map((tag, i) => (
-          <span key={`${tag}-${i}`} className="marquee-pill">
+          <span key={`${tag}-${i}`} className="marquee-pill liquid-glass">
             {tag}
           </span>
         ))}

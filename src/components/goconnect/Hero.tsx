@@ -170,7 +170,7 @@ export function Hero() {
               <ArrowRight data-icon="inline-end" />
             </a>
           </Button>
-          <Button asChild variant="outline" className="btn-glass h-auto">
+          <Button asChild variant="outline" className="btn-glass liquid-glass h-auto">
             <a href={hero.secondaryCta.href}>{hero.secondaryCta.label}</a>
           </Button>
         </div>
