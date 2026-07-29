@@ -1,146 +1,79 @@
 import { useMemo, useState } from "react"
-import { ArrowUpRight, Loader2 } from "lucide-react"
 
-import { Badge } from "@/components/ui/badge"
-import { Card, CardContent } from "@/components/ui/card"
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { projectFilters, projects, workSection } from "@/data/goconnect"
+import { filterDefs, projects, workSection } from "@/data/goconnect-v2"
 import { cn } from "@/lib/utils"
 
-import { useInView, useScrollReveal } from "./hooks"
-
-function ProjectPreview({ title, url }: { title: string; url: string }) {
-  const { ref, inView } = useInView<HTMLDivElement>("300px 0px")
-  const [loaded, setLoaded] = useState(false)
-  const [blocked, setBlocked] = useState(false)
-
-  return (
-    <div
-      ref={ref}
-      className="work-preview relative aspect-[16/10] overflow-hidden rounded-t-2xl bg-gc-dark3"
-    >
-      {!inView && (
-        <div className="absolute inset-0 z-10 flex items-center justify-center bg-gc-dark3">
-          <span className="font-mono text-[0.6rem] uppercase tracking-wider text-gc-text-dimmer">
-            Scroll to preview
-          </span>
-        </div>
-      )}
-      {inView && !loaded && !blocked && (
-        <div className="absolute inset-0 z-10 flex items-center justify-center bg-gc-dark3">
-          <Loader2 className="size-5 animate-spin text-gc-green/60" aria-hidden="true" />
-          <span className="sr-only">Loading preview for {title}</span>
-        </div>
-      )}
-      {blocked && (
-        <div className="absolute inset-0 z-10 flex items-center justify-center bg-gc-dark3 px-4 text-center">
-          <span className="font-mono text-[0.65rem] uppercase tracking-wider text-gc-text-dimmer">
-            Preview blocked — use View Live
-          </span>
-        </div>
-      )}
-      {inView && (
-        <iframe
-          src={url}
-          title={`${title} preview`}
-          loading="lazy"
-          sandbox="allow-scripts allow-same-origin"
-          tabIndex={-1}
-          className={cn(
-            "pointer-events-none absolute left-0 top-0 h-[200%] w-[200%] origin-top-left scale-50 border-0",
-            (blocked || !loaded) && "opacity-0",
-          )}
-          onLoad={() => setLoaded(true)}
-          onError={() => setBlocked(true)}
-        />
-      )}
-      <div className="work-preview-overlay pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-    </div>
-  )
-}
-
-function ProjectCard({
-  project,
-  index,
-}: {
-  project: (typeof projects)[number]
-  index: number
-}) {
-  return (
-    <Card
-      className="work-card glass-card liquid-glass group overflow-hidden border-0 bg-transparent"
-      style={{ animationDelay: `${index * 0.07}s` }}
-    >
-      <a
-        href={project.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="block no-underline"
-        aria-label={`View ${project.title} live`}
-      >
-        <div className="relative">
-          <ProjectPreview title={project.title} url={project.url} />
-          <Badge className="work-tag-badge liquid-glass absolute right-3 top-3 rounded-full border-0 bg-transparent px-3 py-1 font-mono text-[0.58rem] uppercase tracking-wider text-gc-green">
-            {project.tag}
-          </Badge>
-        </div>
-        <CardContent className="work-info space-y-2 p-5">
-          <div className="work-title font-display text-xl text-gc-text transition-colors group-hover:text-gc-green">
-            {project.title}
-          </div>
-          <div className="work-desc font-mono text-[0.72rem] text-gc-text-dim">{project.desc}</div>
-          <div className="work-link flex items-center gap-1 font-mono text-[0.65rem] uppercase tracking-wider text-gc-green">
-            View Live
-            <ArrowUpRight className="size-3.5" aria-hidden="true" />
-          </div>
-        </CardContent>
-      </a>
-    </Card>
-  )
-}
-
 export function Work() {
-  const [filter, setFilter] = useState("all")
-  const headerRef = useScrollReveal<HTMLDivElement>()
-  const filtersRef = useScrollReveal<HTMLDivElement>()
+  const [filter, setFilter] = useState<(typeof filterDefs)[number]>("all")
 
-  const filteredProjects = useMemo(
-    () => (filter === "all" ? projects : projects.filter((p) => p.tag === filter)),
+  const visible = useMemo(
+    () =>
+      (filter === "all" ? projects : projects.filter((p) => p.tag === filter)).map((p, i) => ({
+        ...p,
+        index: String(i + 1).padStart(2, "0"),
+        initial: p.title[0],
+      })),
     [filter],
   )
 
   return (
-    <section id="work" className="perf-section py-24">
-      <div className="section-inner mx-auto max-w-6xl px-6">
-        <div ref={headerRef} className="reveal mb-8 text-center md:text-left">
-          <div className="section-label">{workSection.label}</div>
-          <h2 className="section-title">
-            {workSection.title}{" "}
-            <span className="accent">{workSection.accent}</span>
+    <section id="work" className="perf-section mx-auto max-w-[1240px] px-4 pb-[clamp(56px,9vw,96px)] sm:px-7">
+      <div className="mb-[22px] flex flex-wrap items-end justify-between gap-x-10 gap-y-[18px]">
+        <div className="min-w-0 flex-1 basis-[380px]">
+          <div className="mb-3 font-mono text-[10.5px] uppercase tracking-[0.2em] text-gc-text-dimmer">
+            {workSection.label}
+          </div>
+          <h2 className="font-display text-[clamp(1.85rem,5.2vw,3.3rem)] font-semibold leading-[1.06] tracking-[-0.035em] text-gc-text-bright">
+            {workSection.title}
           </h2>
         </div>
+      </div>
 
-        <div ref={filtersRef} className="reveal reveal-delay-1 mb-10 flex justify-center md:justify-start">
-          <Tabs value={filter} onValueChange={setFilter}>
-            <TabsList className="liquid-glass h-auto max-w-full flex-wrap justify-start gap-1 rounded-full bg-transparent p-1.5">
-              {projectFilters.map((item) => (
-                <TabsTrigger
-                  key={item.value}
-                  value={item.value}
-                  className="rounded-full px-4 py-2 font-mono text-[0.65rem] uppercase tracking-wider text-gc-text-dim data-[state=active]:bg-gc-green data-[state=active]:text-gc-black"
-                >
-                  {item.label}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-          </Tabs>
-        </div>
+      <div className="mb-[18px] flex flex-wrap gap-[7px]">
+        {filterDefs.map((f) => (
+          <button
+            key={f}
+            type="button"
+            onClick={() => setFilter(f)}
+            className={cn(
+              "min-h-[38px] rounded-sm border px-[13px] py-[9px] font-mono text-[10px] uppercase tracking-[0.1em] transition-all",
+              filter === f
+                ? "border-gc-green/50 bg-gc-green/10 text-gc-green"
+                : "border-white/[0.12] bg-transparent text-gc-text-dim2 hover:border-white/25",
+            )}
+          >
+            {f === "all" ? "All 16" : f}
+          </button>
+        ))}
+      </div>
 
-        <div className="work-grid grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredProjects.map((project, index) => (
-            <ProjectCard key={project.title} project={project} index={index} />
-          ))}
-        </div>
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,230px),1fr))] gap-3">
+        {visible.map((p) => (
+          <a
+            key={p.title}
+            href={p.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex flex-col gap-3 rounded border border-white/[0.08] bg-gc-dark p-4 transition-all hover:-translate-y-[3px] hover:border-gc-green/40 hover:bg-gc-dark2"
+          >
+            <div className="flex items-start justify-between gap-2.5">
+              <span className="flex size-[38px] items-center justify-center rounded-[3px] border border-white/[0.09] bg-gc-dark3 font-display text-[15px] font-semibold text-gc-text-dimmer2">
+                {p.initial}
+              </span>
+              <span className="font-mono text-[10px] text-gc-text-faintest">{p.index}</span>
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <span className="font-display text-[16.5px] font-medium tracking-[-0.02em] text-gc-text-bright">
+                {p.title}
+              </span>
+              <span className="font-mono text-[10.5px] leading-relaxed text-[#7a7f82]">{p.desc}</span>
+            </div>
+            <div className="mt-auto flex items-center justify-between pt-1">
+              <span className="font-mono text-[9.5px] uppercase tracking-[0.12em] text-gc-green">{p.tag}</span>
+              <span className="text-sm text-gc-text-dimmer2">↗</span>
+            </div>
+          </a>
+        ))}
       </div>
     </section>
   )

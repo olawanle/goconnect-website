@@ -1,186 +1,74 @@
-import { useCallback, useEffect, useRef } from "react"
-import { ArrowRight, Sparkles } from "lucide-react"
+import { hero, terminalLines } from "@/data/goconnect-v2"
+import { cn } from "@/lib/utils"
 
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { hero, VIDEO_URL } from "@/data/goconnect"
+import { useTypedReveal } from "./hooks"
 
-import { CircuitOverlay } from "./CircuitOverlay"
-import { useInView } from "./hooks"
-import { Navigation } from "./Navigation"
-
-function BackgroundVideo({ active }: { active: boolean }) {
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const opacityRef = useRef(0)
-  const fadeRafRef = useRef<number | null>(null)
-  const monitorRafRef = useRef<number | null>(null)
-  const restartTimerRef = useRef<number | null>(null)
-  const fadingOutRef = useRef(false)
-
-  const fadeTo = useCallback((target: number, duration = 500) => {
-    if (fadeRafRef.current !== null) {
-      cancelAnimationFrame(fadeRafRef.current)
-    }
-
-    const video = videoRef.current
-    if (!video) return
-
-    const startOpacity = opacityRef.current
-    const startedAt = performance.now()
-
-    const step = (now: number) => {
-      const progress = Math.min((now - startedAt) / duration, 1)
-      const nextOpacity = startOpacity + (target - startOpacity) * progress
-      opacityRef.current = nextOpacity
-      video.style.opacity = String(nextOpacity)
-
-      if (progress < 1) {
-        fadeRafRef.current = requestAnimationFrame(step)
-      } else {
-        fadeRafRef.current = null
-      }
-    }
-
-    fadeRafRef.current = requestAnimationFrame(step)
-  }, [])
-
-  const fadeIn = useCallback(() => {
-    fadingOutRef.current = false
-    fadeTo(1, 500)
-  }, [fadeTo])
-
-  useEffect(() => {
-    const video = videoRef.current
-    if (!video) return
-
-    if (!active) {
-      video.pause()
-      if (monitorRafRef.current !== null) {
-        cancelAnimationFrame(monitorRafRef.current)
-        monitorRafRef.current = null
-      }
-      return
-    }
-
-    const monitorPlayback = () => {
-      if (
-        Number.isFinite(video.duration) &&
-        video.duration > 0 &&
-        video.duration - video.currentTime <= 0.55 &&
-        !fadingOutRef.current
-      ) {
-        fadingOutRef.current = true
-        fadeTo(0, 500)
-      }
-      monitorRafRef.current = requestAnimationFrame(monitorPlayback)
-    }
-
-    const handleLoaded = () => {
-      void video.play().catch(() => undefined)
-      fadeIn()
-    }
-
-    const handleEnded = () => {
-      if (fadeRafRef.current !== null) cancelAnimationFrame(fadeRafRef.current)
-      opacityRef.current = 0
-      video.style.opacity = "0"
-      fadingOutRef.current = false
-
-      restartTimerRef.current = window.setTimeout(() => {
-        video.currentTime = 0
-        void video.play().then(fadeIn).catch(() => undefined)
-      }, 100)
-    }
-
-    video.addEventListener("loadeddata", handleLoaded)
-    video.addEventListener("ended", handleEnded)
-    monitorRafRef.current = requestAnimationFrame(monitorPlayback)
-
-    if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
-      void video.play().then(fadeIn).catch(() => undefined)
-    }
-
-    return () => {
-      video.removeEventListener("loadeddata", handleLoaded)
-      video.removeEventListener("ended", handleEnded)
-      if (fadeRafRef.current !== null) cancelAnimationFrame(fadeRafRef.current)
-      if (monitorRafRef.current !== null) cancelAnimationFrame(monitorRafRef.current)
-      if (restartTimerRef.current !== null) window.clearTimeout(restartTimerRef.current)
-    }
-  }, [active, fadeIn, fadeTo])
-
-  return (
-    <video
-      ref={videoRef}
-      className="absolute inset-0 size-full translate-y-[17%] object-cover"
-      src={VIDEO_URL}
-      muted
-      autoPlay
-      playsInline
-      preload="auto"
-      aria-hidden="true"
-      style={{ opacity: 0 }}
-    />
-  )
+const toneClass: Record<(typeof terminalLines)[number]["tone"], string> = {
+  cmd: "font-bold text-gc-text-bright",
+  ok: "text-gc-text-dim",
+  warn: "text-gc-green",
 }
 
 export function Hero() {
-  const { ref: heroRef, inView } = useInView<HTMLElement>("100px 0px")
+  const typed = useTypedReveal(terminalLines.length, true)
 
   return (
     <section
-      ref={heroRef}
-      id="hero"
-      className="relative flex min-h-screen min-h-[600px] flex-col overflow-hidden bg-gc-black"
+      id="top"
+      className="relative mx-auto max-w-[1240px] px-4 pb-10 pt-12 sm:px-7 sm:pb-16 sm:pt-16 lg:pb-[76px] lg:pt-24"
     >
-      <div className="absolute inset-0 z-0">
-        <BackgroundVideo active={inView} />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-emerald-950/20 to-black" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_10%,rgba(0,0,0,0.65)_85%)]" />
-        <div className="absolute inset-0 bg-gc-green/[0.03] mix-blend-overlay" />
-      </div>
-
-      <CircuitOverlay active={inView} />
-
-      <Navigation />
-
-      <div className="hero-overlay relative z-10 mx-auto flex flex-1 -translate-y-[6%] flex-col items-center justify-center px-6 pb-16 pt-8 text-center">
-        <Badge className="hero-badge liquid-glass mb-6 rounded-full border-0 bg-transparent px-4 py-1.5 text-xs text-gc-green/90">
-          <Sparkles data-icon="inline-start" />
-          {hero.badge}
-        </Badge>
-
-        <h1 className="hero-headline mb-6 max-w-4xl">
-          <span className="line1 block font-display text-[clamp(2.5rem,7vw,5.5rem)] leading-[1.05] tracking-tight text-gc-text">
-            {hero.line1}
-          </span>
-          <span className="line2 block font-display text-[clamp(2.5rem,7vw,5.5rem)] italic leading-[1.05] tracking-tight text-gc-green">
-            {hero.line2}
-          </span>
-        </h1>
-
-        <p className="hero-sub mx-auto mb-10 max-w-xl text-base leading-relaxed text-gc-text-dim md:text-lg">
-          {hero.sub}
-        </p>
-
-        <div className="hero-actions flex flex-wrap items-center justify-center gap-4">
-          <Button asChild className="btn-primary h-auto">
-            <a href={hero.primaryCta.href}>
+      <div className="flex flex-wrap items-center gap-8 lg:gap-16">
+        <div className="min-w-0 flex-1 basis-[540px] animate-gc-rise">
+          <div className="mb-[22px] flex items-center gap-3 font-mono text-[10.5px] uppercase tracking-[0.18em] text-gc-text-dim2">
+            <span className="h-px w-8 shrink-0 bg-gc-green" />
+            {hero.eyebrow}
+          </div>
+          <h1 className="mb-6 text-balance font-display text-[clamp(2.35rem,7vw,5.1rem)] font-semibold leading-[1.03] tracking-[-0.04em] text-gc-text-bright">
+            {hero.title}
+          </h1>
+          <p className="mb-8 max-w-[580px] text-pretty text-[clamp(16px,2.2vw,18px)] leading-relaxed text-gc-text-dim">
+            {hero.sub}
+          </p>
+          <div className="flex flex-wrap items-center gap-2.5">
+            <a
+              href={hero.primaryCta.href}
+              className="gc-btn-primary max-w-[280px] flex-1 px-[26px] py-[17px] font-mono text-xs font-bold uppercase tracking-[0.1em]"
+            >
               {hero.primaryCta.label}
-              <ArrowRight data-icon="inline-end" />
             </a>
-          </Button>
-          <Button asChild variant="outline" className="btn-glass liquid-glass h-auto">
-            <a href={hero.secondaryCta.href}>{hero.secondaryCta.label}</a>
-          </Button>
+            <a
+              href={hero.secondaryCta.href}
+              className="gc-btn-outline max-w-[280px] flex-1 px-[26px] py-[17px] font-mono text-xs uppercase tracking-[0.1em]"
+            >
+              {hero.secondaryCta.label}
+            </a>
+          </div>
         </div>
-      </div>
 
-      <div className="hero-scroll absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2">
-        <span className="font-mono text-[0.6rem] uppercase tracking-[0.2em] text-gc-text-dimmer">
-          {hero.scrollLabel}
-        </span>
-        <div className="scroll-line h-10 w-px bg-gc-green/30" />
+        <div
+          className="animate-gc-rise gc-panel min-w-0 flex-1 basis-[380px] shadow-[0_30px_70px_-30px_rgba(0,0,0,0.9)] [animation-delay:0.12s]"
+        >
+          <div className="flex items-center gap-2 border-b border-white/[0.07] px-3.5 py-[11px]">
+            <span className="size-[9px] rounded-full bg-white/[0.14]" />
+            <span className="size-[9px] rounded-full bg-white/[0.14]" />
+            <span className="size-[9px] rounded-full bg-gc-green" />
+            <span className="ml-2 font-mono text-[9.5px] uppercase tracking-[0.14em] text-gc-text-dimmer">
+              goconnect — delivery log
+            </span>
+          </div>
+          <div className="min-h-[236px] overflow-x-auto px-4 py-[18px] font-mono text-[clamp(11px,2.6vw,12.5px)] leading-[1.95] text-gc-text-dim">
+            {terminalLines.slice(0, typed).map((l) => (
+              <div key={l.text} className="flex gap-2.5 whitespace-pre">
+                <span className="text-gc-text-faint">{l.gutter}</span>
+                <span className={cn(toneClass[l.tone])}>{l.text}</span>
+              </div>
+            ))}
+            <div className="flex gap-2.5">
+              <span className="text-gc-text-faint">›</span>
+              <span className="inline-block h-[15px] w-2 animate-gc-caret bg-gc-green" />
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   )

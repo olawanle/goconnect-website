@@ -1,15 +1,19 @@
-import { services } from "@/data/goconnect"
+import { marquee } from "@/data/goconnect-v2"
 
-const marqueeTags = [...new Set(services.flatMap((s) => s.tags))]
+const items = [...marquee, ...marquee]
 
 export function Marquee() {
-  const items = [...marqueeTags, ...marqueeTags]
-
   return (
-    <div className="relative z-10 overflow-hidden border-y border-gc-green/5 py-4" aria-hidden="true">
-      <div className="marquee-track">
+    <div
+      aria-hidden="true"
+      className="overflow-hidden border-y border-white/[0.07] py-[13px]"
+    >
+      <div className="gc-marquee-track">
         {items.map((tag, i) => (
-          <span key={`${tag}-${i}`} className="marquee-pill liquid-glass">
+          <span
+            key={`${tag}-${i}`}
+            className="shrink-0 font-mono text-[11px] uppercase tracking-[0.18em] text-gc-text-dimmer2"
+          >
             {tag}
           </span>
         ))}

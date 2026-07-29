@@ -1,5 +1,4 @@
 import type { Config } from "tailwindcss"
-import animate from "tailwindcss-animate"
 
 export default {
   darkMode: ["class"],
@@ -7,7 +6,7 @@ export default {
   safelist: [
     {
       pattern:
-        /^(bg|text|border)-gc-(black|dark2?|dark3|gray|green|text|text-dim|text-dimmer)(\/\d+)?$/,
+        /^(bg|text|border)-gc-(black|dark2?|dark3|green|green-hover|ink|text(-bright|-dim2?|-dimmer2?|-faintest?)?)(\/\d+)?$/,
     },
     "border-border",
     "bg-background",
@@ -57,21 +56,25 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
         gc: {
-          green: "rgb(57 255 20 / <alpha-value>)",
-          "green-dim": "#27b30e",
-          black: "#000000",
-          dark: "#030303",
-          dark2: "#0a0a0a",
-          dark3: "#111111",
-          gray: "#1a1a1a",
-          text: "#e8e8e8",
-          "text-dim": "#888888",
-          "text-dimmer": "#444444",
+          green: "rgb(82 255 38 / <alpha-value>)",
+          "green-hover": "#8dff6e",
+          ink: "#06070a",
+          black: "#0a0b0c",
+          dark: "#0c0e0f",
+          dark2: "#101314",
+          dark3: "#141718",
+          text: "#e6e7e8",
+          "text-bright": "#f2f3f4",
+          "text-dim": "#9fa4a7",
+          "text-dim2": "#82878a",
+          "text-dimmer": "#6b6f72",
+          "text-dimmer2": "#55595c",
+          "text-faint": "#4b5053",
+          "text-faintest": "#3f4446",
         },
       },
       fontFamily: {
-        display: ['"Instrument Serif"', "serif"],
-        serif: ['"Instrument Serif"', "serif"],
+        display: ["Space Grotesk", "sans-serif"],
         mono: ["Space Mono", "monospace"],
         body: ["Inter", "sans-serif"],
       },
@@ -80,21 +83,7 @@ export default {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
-      keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
-        },
-      },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-      },
     },
   },
-  plugins: [animate],
+  plugins: [],
 } satisfies Config

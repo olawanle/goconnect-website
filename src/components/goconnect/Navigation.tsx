@@ -1,108 +1,95 @@
-import { useEffect, useState } from "react"
-import { Menu } from "lucide-react"
+import { useState } from "react"
 
-import { Button } from "@/components/ui/button"
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet"
-import { LOGO_PATH, mobileNavLinks, navLinks } from "@/data/goconnect"
+import { availabilityText, navLinks, WHATSAPP_BASE_LINK } from "@/data/goconnect-v2"
 import { cn } from "@/lib/utils"
 
-export function Navigation() {
-  const [scrolled, setScrolled] = useState(false)
+import { useScrollProgressBar } from "./hooks"
+import { Logo } from "./Logo"
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
-    onScroll()
-    window.addEventListener("scroll", onScroll, { passive: true })
-    return () => window.removeEventListener("scroll", onScroll)
-  }, [])
+export function Navigation() {
+  const [menuOpen, setMenuOpen] = useState(false)
+  const progressRef = useScrollProgressBar<HTMLDivElement>()
 
   return (
-    <header className="relative z-20 px-6 py-6">
-      <nav
-        id="navbar"
-        className={cn(
-          "liquid-glass mx-auto flex max-w-5xl items-center justify-between rounded-full px-5 py-3 transition-shadow duration-300 md:px-6",
-          scrolled && "shadow-[0_8px_40px_rgba(0,0,0,0.6),0_0_24px_var(--gc-green-glow)]",
-        )}
-        aria-label="Main navigation"
-      >
-        <a href="#hero" className="flex items-center gap-2.5 no-underline">
-          <img
-            src={LOGO_PATH}
-            alt="GoConnect"
-            className="size-8 rounded-full object-contain"
-            width={32}
-            height={32}
-          />
-          <span className="font-display text-lg font-normal tracking-tight text-gc-text">
-            GoConnect
-          </span>
-        </a>
+    <>
+      <div className="flex flex-wrap items-center justify-between gap-x-5 gap-y-1.5 border-b border-white/[0.07] px-4 py-2.5 font-mono text-[10px] uppercase tracking-[0.16em] text-gc-text-dimmer sm:px-7">
+        <span className="flex items-center gap-2.5 text-gc-text-dim">
+          <span className="size-1.5 shrink-0 animate-gc-pulse rounded-full bg-gc-green shadow-[0_0_10px_rgba(82,255,38,0.8)]" />
+          {availabilityText}
+        </span>
+        <span className="hidden sm:inline">Replies in under 24h · Worldwide · Since 2023</span>
+      </div>
 
-        <div className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) =>
-            "cta" in link && link.cta ? (
-              <Button
+      <header className="sticky top-0 z-[60] border-b border-white/[0.07] bg-gc-black/[0.82] backdrop-blur-2xl">
+        <nav
+          aria-label="Main"
+          className="mx-auto flex max-w-[1240px] items-center justify-between gap-4 px-4 py-3 sm:px-7"
+        >
+          <a href="#top" className="flex items-center gap-2.5">
+            <Logo variant="nav" />
+            <span className="font-display text-lg font-semibold tracking-tight text-gc-text-bright">
+              GoConnect
+            </span>
+          </a>
+
+          <div className="hidden items-center gap-[26px] md:flex">
+            {navLinks.map((link) => (
+              <a
                 key={link.href}
-                asChild
-                className="rounded-full bg-gc-green px-5 text-sm font-medium text-gc-black hover:bg-gc-green/90"
+                href={link.href}
+                className="font-mono text-[11px] uppercase tracking-[0.14em] text-gc-text-dim2 transition-colors hover:text-gc-text-bright"
               >
-                <a href={link.href}>{link.label}</a>
-              </Button>
-            ) : (
-              <a key={link.href} href={link.href} className="nav-link">
                 {link.label}
               </a>
-            ),
+            ))}
+            <a
+              href={WHATSAPP_BASE_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="gc-btn-primary px-[17px] py-[11px] font-mono text-[11px] font-bold uppercase tracking-[0.1em]"
+            >
+              Message us →
+            </a>
+          </div>
+
+          <button
+            type="button"
+            aria-label="Menu"
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((v) => !v)}
+            className="flex size-11 flex-col items-end justify-center gap-[5px] md:hidden"
+          >
+            <span className="block h-[1.5px] w-5 bg-gc-text" />
+            <span className="block h-[1.5px] w-5 bg-gc-text" />
+            <span className="block h-[1.5px] w-[13px] bg-gc-green" />
+          </button>
+        </nav>
+
+        <div
+          className={cn(
+            "flex-col border-t border-white/[0.07] bg-gc-black/[0.96] px-4 pb-4 pt-1 sm:px-7 md:hidden",
+            menuOpen ? "flex" : "hidden",
           )}
+        >
+          {navLinks.map((link, i) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={() => setMenuOpen(false)}
+              className={cn(
+                "px-1 py-3.5 font-mono text-[13px] uppercase tracking-[0.14em] text-gc-text",
+                i < navLinks.length - 1 && "border-b border-white/[0.07]",
+              )}
+            >
+              {link.label}
+            </a>
+          ))}
         </div>
 
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="rounded-full text-gc-text hover:bg-gc-green/10 hover:text-gc-green md:hidden"
-              aria-label="Open menu"
-            >
-              <Menu />
-            </Button>
-          </SheetTrigger>
-          <SheetContent
-            side="right"
-            className="liquid-glass flex flex-col border-0 bg-black/80 text-gc-text"
-          >
-            <SheetHeader>
-              <SheetTitle className="font-display text-left text-2xl text-gc-text">
-                GoConnect
-              </SheetTitle>
-              <SheetDescription className="sr-only">
-                Navigate to a section of the site
-              </SheetDescription>
-            </SheetHeader>
-            <nav className="mt-8 flex flex-1 flex-col justify-center gap-6" aria-label="Mobile navigation">
-              {mobileNavLinks.map((link) => (
-                <SheetClose asChild key={link.href}>
-                  <a
-                    href={link.href}
-                    className="font-display text-3xl text-gc-text-dim transition-colors hover:text-gc-green"
-                  >
-                    {link.label}
-                  </a>
-                </SheetClose>
-              ))}
-            </nav>
-          </SheetContent>
-        </Sheet>
-      </nav>
-    </header>
+        <div aria-hidden="true" className="h-0.5 bg-white/5">
+          <div ref={progressRef} className="h-0.5 w-0 bg-gc-green" />
+        </div>
+      </header>
+    </>
   )
 }

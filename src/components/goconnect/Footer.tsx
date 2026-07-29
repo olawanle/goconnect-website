@@ -1,58 +1,34 @@
-import { Send, Twitter } from "lucide-react"
+import { footerCopyright, footerLinks } from "@/data/goconnect-v2"
 
-import { LOGO_PATH, footer } from "@/data/goconnect"
-
-const socialIcons: Record<string, typeof Send | typeof Twitter> = {
-  Telegram: Send,
-  Twitter: Twitter,
-}
+import { useMediaQuery } from "./hooks"
+import { Logo } from "./Logo"
 
 export function Footer() {
+  const narrow = useMediaQuery("(max-width: 860px)")
+
   return (
-    <footer className="relative z-10 py-12">
-      <div className="footer-inner mx-auto flex max-w-6xl flex-col items-center gap-8 px-6">
-        <a href="#hero" className="footer-logo flex items-center gap-3 no-underline">
-          <img
-            src={LOGO_PATH}
-            alt="GoConnect"
-            className="size-8 rounded-full object-contain"
-            width={32}
-            height={32}
-          />
-          <span className="footer-logo-text font-display text-lg text-gc-text">
-            GoConnect
-          </span>
+    <footer className="border-t border-white/[0.08]">
+      <div className="mx-auto flex max-w-[1240px] flex-wrap items-center justify-between gap-x-[30px] gap-y-[18px] px-4 py-[26px] pb-[calc(26px+env(safe-area-inset-bottom))] sm:px-7">
+        <a href="#top" className="flex items-center gap-2.5">
+          <Logo variant="footer" />
+          <span className="font-display text-base font-semibold tracking-[-0.02em] text-gc-text">GoConnect</span>
         </a>
-
-        <div className="flex justify-center gap-4">
-          {footer.links.map((link) => {
-            const external = link.href.startsWith("http")
-            const Icon = socialIcons[link.label]
-            return (
-              <a
-                key={link.label}
-                href={link.href}
-                target={external ? "_blank" : undefined}
-                rel={external ? "noopener noreferrer" : undefined}
-                aria-label={link.label}
-                className="liquid-glass flex size-11 items-center justify-center rounded-full text-gc-text-dim transition-all hover:bg-gc-green/5 hover:text-gc-green"
-              >
-                {Icon ? (
-                  <Icon className="size-4" aria-hidden="true" />
-                ) : (
-                  <span className="font-mono text-[0.6rem] uppercase tracking-wider">
-                    {link.label}
-                  </span>
-                )}
-              </a>
-            )
-          })}
-        </div>
-
-        <div className="footer-copy text-center font-mono text-[0.65rem] uppercase tracking-[0.12em] text-gc-text-dimmer">
-          {footer.copyright}
+        <nav aria-label="Footer" className="flex flex-wrap gap-x-[22px] gap-y-3.5">
+          {footerLinks.map((l) => (
+            <a
+              key={l.label}
+              href={l.href}
+              className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-gc-text-dimmer transition-colors hover:text-gc-text"
+            >
+              {l.label}
+            </a>
+          ))}
+        </nav>
+        <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-gc-text-faintest">
+          {footerCopyright}
         </div>
       </div>
+      {narrow && <div aria-hidden="true" className="h-[74px]" />}
     </footer>
   )
 }

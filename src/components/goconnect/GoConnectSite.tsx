@@ -1,11 +1,15 @@
-import { About } from "./About"
 import { Contact } from "./Contact"
+import { Dock } from "./Dock"
+import { FAQ } from "./FAQ"
 import { Footer } from "./Footer"
 import { GlobalEffects } from "./GlobalEffects"
 import { Hero } from "./Hero"
-import { Loader } from "./Loader"
 import { Marquee } from "./Marquee"
+import { Navigation } from "./Navigation"
+import { Process } from "./Process"
+import { ScopeBuilder } from "./ScopeBuilder"
 import { Services } from "./Services"
+import { Stats } from "./Stats"
 import { Team } from "./Team"
 import { Work } from "./Work"
 
@@ -13,21 +17,23 @@ export function GoConnectSite() {
   return (
     <>
       <GlobalEffects />
-      <Loader />
-      <main className="relative min-h-screen bg-gc-black text-gc-text">
-        <Hero />
-        <div className="section-backdrop">
+      <div className="relative z-[5] min-h-screen bg-gc-black text-gc-text">
+        <Navigation />
+        <main>
+          <Hero />
+          <Stats />
           <Marquee />
-          <About />
-          <Marquee />
+          <ScopeBuilder />
           <Services />
-          <Team />
-          <Marquee />
           <Work />
+          <Process />
+          <Team />
+          <FAQ />
           <Contact />
-          <Footer />
-        </div>
-      </main>
+        </main>
+        <Footer />
+      </div>
+      <Dock />
     </>
   )
 }
