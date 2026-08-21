@@ -11,6 +11,8 @@ import {
 } from "@/data/goconnect-v2"
 import { cn } from "@/lib/utils"
 
+import { useReveal } from "./hooks"
+
 const kindEntries = (Object.keys(KINDS) as BuildKind[]).map((k) => ({ value: k, label: KINDS[k].label }))
 const scopeEntries = (Object.keys(SCOPES) as BuildScope[]).map((k) => ({ value: k, label: SCOPES[k].label }))
 const urgencyEntries = (Object.keys(URGENCY) as BuildUrgency[]).map((k) => ({ value: k, label: URGENCY[k].label }))
@@ -55,6 +57,7 @@ function ChipGroup<T extends string>({
 }
 
 export function ScopeBuilder() {
+  const { ref: headerRef, visible } = useReveal<HTMLDivElement>()
   const [kind, setKind] = useState<BuildKind>("saas")
   const [scope, setScope] = useState<BuildScope>("mvp")
   const [urgency, setUrgency] = useState<BuildUrgency>("quarter")
@@ -109,8 +112,16 @@ export function ScopeBuilder() {
   }
 
   return (
-    <section id="build" className="mx-auto max-w-[1240px] px-4 py-[clamp(56px,9vw,96px)] sm:px-7">
-      <div className="mb-8 flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
+    <section id="build" className="relative mx-auto max-w-[1240px] px-4 py-[clamp(56px,9vw,96px)] sm:px-7">
+      <div
+        ref={headerRef}
+        className={cn(
+          "relative mb-8 flex flex-wrap items-end justify-between gap-x-10 gap-y-5",
+          "reveal",
+          visible && "visible",
+        )}
+      >
+        <span aria-hidden="true" className="gc-ghost-num">01</span>
         <div className="min-w-0 flex-1 basis-[420px]">
           <div className="mb-3 font-mono text-[10.5px] uppercase tracking-[0.2em] text-gc-text-dimmer">
             01 / Scope it now
@@ -146,7 +157,7 @@ export function ScopeBuilder() {
           </div>
         </div>
 
-        <div className="flex min-w-0 flex-1 basis-[340px] flex-col rounded border border-gc-green/[0.22] bg-[#0e1110] p-[clamp(20px,3.4vw,26px)]">
+        <div className="flex min-w-0 flex-1 basis-[340px] flex-col rounded border border-gc-green/[0.22] bg-[#0e1110] p-[clamp(20px,3.4vw,26px)] shadow-[0_0_60px_-24px_rgba(82,255,38,0.4)]">
           <div className="mb-4 flex items-center justify-between gap-3 font-mono text-[10.5px] uppercase tracking-[0.16em] text-gc-green">
             <span>Your build sheet</span>
             <span className="text-gc-text-dimmer2">{sheetRefLabel}</span>

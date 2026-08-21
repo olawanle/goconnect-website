@@ -9,6 +9,7 @@ export function GlobalEffects() {
     <>
       {!reducedMotion && <div ref={spotRef} aria-hidden="true" className="gc-spotlight" />}
       <div aria-hidden="true" className="gc-grid-bg" />
+      <div aria-hidden="true" className="gc-noise" />
     </>
   )
 }

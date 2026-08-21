@@ -3,13 +3,20 @@ import { useState } from "react"
 import { faqs, faqSection } from "@/data/goconnect-v2"
 import { cn } from "@/lib/utils"
 
+import { useReveal } from "./hooks"
+
 export function FAQ() {
   const [open, setOpen] = useState(0)
+  const { ref: headerRef, visible } = useReveal<HTMLDivElement>()
 
   return (
-    <section id="faq" className="mx-auto max-w-[1240px] px-4 pb-[clamp(56px,9vw,96px)] sm:px-7">
+    <section id="faq" className="relative mx-auto max-w-[1240px] px-4 pb-[clamp(56px,9vw,96px)] sm:px-7">
       <div className="flex flex-wrap items-start gap-8 lg:gap-16">
-        <div className="min-w-0 flex-1 basis-[320px]">
+        <div
+          ref={headerRef}
+          className={cn("relative min-w-0 flex-1 basis-[320px]", "reveal", visible && "visible")}
+        >
+          <span aria-hidden="true" className="gc-ghost-num">06</span>
           <div className="mb-3 font-mono text-[10.5px] uppercase tracking-[0.2em] text-gc-text-dimmer">
             {faqSection.label}
           </div>
@@ -26,7 +33,10 @@ export function FAQ() {
                   type="button"
                   aria-expanded={isOpen}
                   onClick={() => setOpen(isOpen ? -1 : i)}
-                  className="flex w-full items-center justify-between gap-4 px-1 py-[18px] text-left font-display text-[clamp(16.5px,3vw,19px)] font-medium leading-[1.3] tracking-[-0.02em] text-gc-text-bright"
+                  className={cn(
+                    "flex w-full items-center justify-between gap-4 px-1 py-[18px] text-left font-display text-[clamp(16.5px,3vw,19px)] font-medium leading-[1.3] tracking-[-0.02em] transition-colors hover:text-gc-green",
+                    isOpen ? "text-gc-text-bright" : "text-gc-text",
+                  )}
                 >
                   {f.q}
                   <span

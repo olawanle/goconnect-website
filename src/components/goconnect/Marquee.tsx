@@ -6,7 +6,7 @@ export function Marquee() {
   return (
     <div
       aria-hidden="true"
-      className="overflow-hidden border-y border-white/[0.07] py-[13px]"
+      className="gc-marquee-mask overflow-hidden border-y border-white/[0.07] py-[13px]"
     >
       <div className="gc-marquee-track">
         {items.map((tag, i) => (

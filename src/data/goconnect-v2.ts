@@ -1,4 +1,7 @@
 export const LOGO_PATH = "/logo.png"
+export const LOGO_MARK_PATH = "/logo-mark.png"
+
+export const EMAIL = "goconnect234@gmail.com"
 
 export const WHATSAPP_NUMBER = "13652760910"
 export const WHATSAPP_DISPLAY = "+1 365 276 0910"
@@ -20,7 +23,7 @@ export const hero = {
   title: "We build the thing you were told would take a year.",
   sub: "Custom SaaS platforms, trading bots, AI chatbots and scraping pipelines — engineered by the four people who actually write the code. Thirty-plus builds shipped to production, most of them inside a quarter.",
   primaryCta: { label: "Scope your build →", href: "#build" },
-  secondaryCta: { label: "See 16 shipped projects", href: "#work" },
+  secondaryCta: { label: "See 17 shipped projects", href: "#work" },
 } as const
 
 export const terminalLines = [
@@ -174,7 +177,7 @@ export type ProjectCategory = "Chatbot" | "Web App" | "Platform" | "SaaS" | "Tra
 
 export const workSection = {
   label: "03 / Selected work",
-  title: "Sixteen things that are live.",
+  title: "Seventeen things that are live.",
 } as const
 
 export const filterDefs: Array<"all" | ProjectCategory> = [
@@ -198,6 +201,7 @@ export const projects: Array<{ title: string; desc: string; tag: ProjectCategory
   { title: "Hashkey Group", desc: "Digital asset · Finance", tag: "Finance", url: "https://group.hashkey.com/en/" },
   { title: "Aevo", desc: "Derivatives · Exchange", tag: "Trading", url: "https://aevo.com/" },
   { title: "Satori Finance", desc: "Finance · Derivatives", tag: "Finance", url: "https://satori.finance/" },
+  { title: "Telogenyx AI", desc: "Longevity medicine · Clinical SaaS", tag: "SaaS", url: "https://app.aeternaage.com/" },
 ]
 
 export const processSection = {
@@ -250,15 +254,14 @@ export const contactLinks = [
   { label: "WhatsApp", value: WHATSAPP_DISPLAY, href: WHATSAPP_BASE_LINK },
   { label: "Telegram", value: "@goconnectdev", href: TELEGRAM_LINK },
   { label: "X / Twitter", value: "@goconnect234", href: "https://x.com/goconnect234" },
-  { label: "LinkedIn", value: "Adegboyega Akorede", href: "https://www.linkedin.com/in/adegboyega-akorede-276314383" },
-  { label: "Email", value: "info@goconnect.space", href: "mailto:info@goconnect.space" },
+  { label: "Email", value: EMAIL, href: `mailto:${EMAIL}` },
 ] as const
 
 export const footerLinks = [
   { label: "Services", href: "#services" },
   { label: "Work", href: "#work" },
   { label: "FAQ", href: "#faq" },
-  { label: "info@goconnect.space", href: "mailto:info@goconnect.space" },
+  { label: EMAIL, href: `mailto:${EMAIL}` },
 ] as const
 
 export const footerCopyright = "© 2026 GoConnect Agency"

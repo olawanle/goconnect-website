@@ -17,6 +17,15 @@ export function Hero() {
       id="top"
       className="relative mx-auto max-w-[1240px] px-4 pb-10 pt-12 sm:px-7 sm:pb-16 sm:pt-16 lg:pb-[76px] lg:pt-24"
     >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-24 top-10 -z-10 size-[520px] rounded-full bg-gc-green/[0.07] blur-[120px]"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-32 bottom-0 -z-10 size-[420px] rounded-full bg-gc-green/[0.05] blur-[110px]"
+      />
+
       <div className="flex flex-wrap items-center gap-8 lg:gap-16">
         <div className="min-w-0 flex-1 basis-[540px] animate-gc-rise">
           <div className="mb-[22px] flex items-center gap-3 font-mono text-[10.5px] uppercase tracking-[0.18em] text-gc-text-dim2">

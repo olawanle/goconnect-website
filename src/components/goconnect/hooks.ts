@@ -49,6 +49,56 @@ export function useInView<T extends HTMLElement>(rootMargin = "200px 0px") {
   return { ref, inView }
 }
 
+/** Fires once when the element first scrolls into view, for a one-shot entrance transition. */
+export function useReveal<T extends HTMLElement>(rootMargin = "0px 0px -10% 0px") {
+  const ref = useRef<T>(null)
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true)
+          observer.unobserve(el)
+        }
+      },
+      { threshold: 0.12, rootMargin },
+    )
+
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [rootMargin])
+
+  return { ref, visible }
+}
+
+/** Tracks the cursor position over an element as --mx/--my CSS vars, for a spotlight-follows-cursor effect. */
+export function useCardSpotlight<T extends HTMLElement>() {
+  const ref = useRef<T>(null)
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return
+
+    const el = ref.current
+    if (!el) return
+
+    const onMove = (e: MouseEvent) => {
+      const rect = el.getBoundingClientRect()
+      el.style.setProperty("--mx", `${e.clientX - rect.left}px`)
+      el.style.setProperty("--my", `${e.clientY - rect.top}px`)
+    }
+
+    el.addEventListener("mousemove", onMove)
+    return () => el.removeEventListener("mousemove", onMove)
+  }, [])
+
+  return ref
+}
+
 export function useMediaQuery(query: string) {
   const subscribe = useCallback(
     (onStoreChange: () => void) => {

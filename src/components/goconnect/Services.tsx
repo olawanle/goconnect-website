@@ -3,19 +3,26 @@ import { useState } from "react"
 import { services, servicesSection } from "@/data/goconnect-v2"
 import { cn } from "@/lib/utils"
 
+import { useCardSpotlight, useReveal } from "./hooks"
+
 export function Services() {
   const [active, setActive] = useState(0)
   const activeService = services[active]
+  const { ref: headerRef, visible } = useReveal<HTMLDivElement>()
+  const spotRef = useCardSpotlight<HTMLDivElement>()
 
   return (
-    <section id="services" className="perf-section mx-auto max-w-[1240px] px-4 pb-[clamp(56px,9vw,96px)] sm:px-7">
-      <div className="mb-3 font-mono text-[10.5px] uppercase tracking-[0.2em] text-gc-text-dimmer">
-        {servicesSection.label}
+    <section id="services" className="perf-section relative mx-auto max-w-[1240px] px-4 pb-[clamp(56px,9vw,96px)] sm:px-7">
+      <div ref={headerRef} className={cn("relative", "reveal", visible && "visible")}>
+        <span aria-hidden="true" className="gc-ghost-num">02</span>
+        <div className="mb-3 font-mono text-[10.5px] uppercase tracking-[0.2em] text-gc-text-dimmer">
+          {servicesSection.label}
+        </div>
+        <h2 className="mb-3 font-display text-[clamp(1.85rem,5.2vw,3.3rem)] font-semibold leading-[1.06] tracking-[-0.035em] text-gc-text-bright">
+          {servicesSection.title}
+        </h2>
+        <p className="mb-8 max-w-[600px] text-base leading-relaxed text-gc-text-dim2">{servicesSection.sub}</p>
       </div>
-      <h2 className="mb-3 font-display text-[clamp(1.85rem,5.2vw,3.3rem)] font-semibold leading-[1.06] tracking-[-0.035em] text-gc-text-bright">
-        {servicesSection.title}
-      </h2>
-      <p className="mb-8 max-w-[600px] text-base leading-relaxed text-gc-text-dim2">{servicesSection.sub}</p>
 
       <div className="flex flex-wrap items-stretch gap-5">
         <div className="flex min-w-0 flex-1 basis-[330px] flex-col gap-px overflow-hidden rounded border border-white/[0.08] bg-white/[0.08]">
@@ -48,7 +55,10 @@ export function Services() {
           ))}
         </div>
 
-        <div className="gc-panel flex min-w-0 flex-1 basis-[400px] flex-col gap-5 p-[clamp(22px,3.6vw,32px)]">
+        <div
+          ref={spotRef}
+          className="gc-panel gc-spot-card flex min-w-0 flex-1 basis-[400px] flex-col gap-5 p-[clamp(22px,3.6vw,32px)]"
+        >
           <div className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-gc-green">
             {activeService.sub}
           </div>

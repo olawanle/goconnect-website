@@ -1,23 +1,21 @@
-import { LOGO_PATH } from "@/data/goconnect-v2"
+import { LOGO_MARK_PATH } from "@/data/goconnect-v2"
 
-const VARIANTS = {
-  nav: { box: 32, img: 67, left: -17, top: -11 },
-  footer: { box: 28, img: 58, left: -15, top: -9 },
+const SIZES = {
+  nav: 34,
+  footer: 28,
 } as const
 
-export function Logo({ variant = "nav" }: { variant?: keyof typeof VARIANTS }) {
-  const { box, img, left, top } = VARIANTS[variant]
+export function Logo({ variant = "nav" }: { variant?: keyof typeof SIZES }) {
+  const size = SIZES[variant]
 
   return (
-    <span className="relative block shrink-0 overflow-hidden rounded-sm" style={{ width: box, height: box }}>
-      <img
-        src={LOGO_PATH}
-        alt="GoConnect"
-        width={img}
-        height={img}
-        className="absolute"
-        style={{ left, top, width: img, height: img }}
-      />
-    </span>
+    <img
+      src={LOGO_MARK_PATH}
+      alt="GoConnect"
+      width={size}
+      height={size}
+      className="block shrink-0 object-contain"
+      style={{ width: size, height: size }}
+    />
   )
 }
