@@ -14,7 +14,7 @@ function StatCell({
   return (
     <div
       ref={spotRef}
-      className="gc-spot-card bg-gc-dark px-[clamp(18px,3vw,24px)] py-[22px] transition-colors hover:bg-gc-dark2"
+      className="gc-spot-card px-[clamp(16px,4vw,32px)] py-[26px] transition-colors hover:bg-white/[0.02]"
     >
       <div
         ref={numberRef}
@@ -22,7 +22,7 @@ function StatCell({
       >
         {(stat.prefix ?? "") + "0" + stat.suffix}
       </div>
-      <div className="mt-2.5 text-[13px] leading-relaxed text-gc-text-dim2">{stat.label}</div>
+      <div className="mt-2.5 max-w-[280px] text-[13px] leading-relaxed text-gc-text-dim2">{stat.label}</div>
     </div>
   )
 }
@@ -32,10 +32,10 @@ export function Stats() {
   const nodesRef = useCountUp(stats, inView)
 
   return (
-    <section className="mx-auto max-w-[1240px] px-4 pb-10 sm:px-7 sm:pb-[76px]">
+    <section className="border-y border-white/[0.08]">
       <div
         ref={ref}
-        className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,215px),1fr))] gap-px overflow-hidden rounded border border-white/[0.08] bg-white/[0.08]"
+        className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,240px),1fr))]"
       >
         {stats.map((s) => (
           <StatCell

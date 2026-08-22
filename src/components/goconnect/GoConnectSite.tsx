@@ -8,6 +8,7 @@ import { Marquee } from "./Marquee"
 import { Navigation } from "./Navigation"
 import { Process } from "./Process"
 import { ScopeBuilder } from "./ScopeBuilder"
+import { SectionRail } from "./SectionRail"
 import { Services } from "./Services"
 import { Stats } from "./Stats"
 import { Team } from "./Team"
@@ -17,6 +18,7 @@ export function GoConnectSite() {
   return (
     <>
       <GlobalEffects />
+      <SectionRail />
       <div className="relative z-[5] min-h-screen bg-gc-black text-gc-text">
         <Navigation />
         <main>

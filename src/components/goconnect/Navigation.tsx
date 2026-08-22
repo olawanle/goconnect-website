@@ -3,12 +3,13 @@ import { useState } from "react"
 import { availabilityText, navLinks, WHATSAPP_BASE_LINK } from "@/data/goconnect-v2"
 import { cn } from "@/lib/utils"
 
-import { useScrollProgressBar } from "./hooks"
+import { useActiveSection, useScrollProgressBar } from "./hooks"
 import { Logo } from "./Logo"
 
 export function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false)
   const progressRef = useScrollProgressBar<HTMLDivElement>()
+  const active = useActiveSection(navLinks.map((l) => l.href.slice(1)))
 
   return (
     <>
@@ -37,7 +38,11 @@ export function Navigation() {
               <a
                 key={link.href}
                 href={link.href}
-                className="font-mono text-[11px] uppercase tracking-[0.14em] text-gc-text-dim2 transition-colors hover:text-gc-text-bright"
+                aria-current={active === link.href.slice(1) ? "true" : undefined}
+                className={cn(
+                  "font-mono text-[11px] uppercase tracking-[0.14em] transition-colors hover:text-gc-text-bright",
+                  active === link.href.slice(1) ? "text-gc-green" : "text-gc-text-dim2",
+                )}
               >
                 {link.label}
               </a>

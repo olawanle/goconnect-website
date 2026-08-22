@@ -15,7 +15,7 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative mx-auto max-w-[1240px] px-4 pb-10 pt-12 sm:px-7 sm:pb-16 sm:pt-16 lg:pb-[76px] lg:pt-24"
+      className="relative flex min-h-[92svh] items-center px-4 py-12 sm:px-7 sm:py-16"
     >
       <div
         aria-hidden="true"
@@ -26,7 +26,7 @@ export function Hero() {
         className="pointer-events-none absolute -right-32 bottom-0 -z-10 size-[420px] rounded-full bg-gc-green/[0.05] blur-[110px]"
       />
 
-      <div className="flex flex-wrap items-center gap-8 lg:gap-16">
+      <div className="mx-auto flex w-full max-w-[1240px] flex-wrap items-center gap-8 lg:gap-16">
         <div className="min-w-0 flex-1 basis-[540px] animate-gc-rise">
           <div className="mb-[22px] flex items-center gap-3 font-mono text-[10.5px] uppercase tracking-[0.18em] text-gc-text-dim2">
             <span className="h-px w-8 shrink-0 bg-gc-green" />
@@ -79,6 +79,15 @@ export function Hero() {
           </div>
         </div>
       </div>
+
+      <a
+        href="#build"
+        aria-label="Scroll to explore"
+        className="absolute inset-x-0 bottom-4 mx-auto hidden w-fit flex-col items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-gc-text-dimmer transition-colors hover:text-gc-green sm:flex"
+      >
+        Scroll
+        <span className="h-6 w-px animate-gc-pulse bg-current" />
+      </a>
     </section>
   )
 }

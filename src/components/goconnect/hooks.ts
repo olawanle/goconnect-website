@@ -99,6 +99,38 @@ export function useCardSpotlight<T extends HTMLElement>() {
   return ref
 }
 
+/** Tracks which section id is currently crossing the vertical center of the viewport, for scrollspy nav. */
+export function useActiveSection(ids: readonly string[]) {
+  const [active, setActive] = useState<string>(ids[0] ?? "")
+  const key = ids.join(",")
+
+  useEffect(() => {
+    const elements = key
+      .split(",")
+      .filter(Boolean)
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null)
+    if (elements.length === 0) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const intersecting = entries.filter((e) => e.isIntersecting)
+        if (intersecting.length === 0) return
+        const topmost = intersecting.reduce((a, b) =>
+          a.boundingClientRect.top < b.boundingClientRect.top ? a : b,
+        )
+        setActive(topmost.target.id)
+      },
+      { rootMargin: "-35% 0px -55% 0px", threshold: 0 },
+    )
+
+    elements.forEach((el) => observer.observe(el))
+    return () => observer.disconnect()
+  }, [key])
+
+  return active
+}
+
 export function useMediaQuery(query: string) {
   const subscribe = useCallback(
     (onStoreChange: () => void) => {
