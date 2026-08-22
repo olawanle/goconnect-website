@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react"
+import { Bot, Code2, Database, MessagesSquare, TrendingUp } from "lucide-react"
 
 import {
   type BuildKind,
@@ -13,13 +14,25 @@ import { cn } from "@/lib/utils"
 
 import { useReveal } from "./hooks"
 
-const kindEntries = (Object.keys(KINDS) as BuildKind[]).map((k) => ({ value: k, label: KINDS[k].label }))
+const KIND_ICONS: Record<BuildKind, typeof Code2> = {
+  saas: Code2,
+  bot: Bot,
+  ai: MessagesSquare,
+  data: Database,
+  growth: TrendingUp,
+}
+
+const kindEntries = (Object.keys(KINDS) as BuildKind[]).map((k) => ({
+  value: k,
+  label: KINDS[k].label,
+  icon: KIND_ICONS[k],
+}))
 const scopeEntries = (Object.keys(SCOPES) as BuildScope[]).map((k) => ({ value: k, label: SCOPES[k].label }))
 const urgencyEntries = (Object.keys(URGENCY) as BuildUrgency[]).map((k) => ({ value: k, label: URGENCY[k].label }))
 
 function chipClass(active: boolean) {
   return cn(
-    "min-h-11 rounded-sm border px-[15px] py-[11px] font-mono text-[11px] uppercase tracking-[0.06em] transition-all",
+    "inline-flex min-h-11 items-center gap-2 rounded-sm border px-[15px] py-[11px] font-mono text-[11px] uppercase tracking-[0.06em] transition-all",
     active
       ? "border-gc-green bg-gc-green text-gc-ink"
       : "border-white/[0.14] bg-transparent text-gc-text-dim hover:border-white/30",
@@ -33,7 +46,7 @@ function ChipGroup<T extends string>({
   onChange,
 }: {
   label: string
-  options: ReadonlyArray<{ value: T; label: string }>
+  options: ReadonlyArray<{ value: T; label: string; icon?: typeof Code2 }>
   value: T
   onChange: (v: T) => void
 }) {
@@ -48,6 +61,7 @@ function ChipGroup<T extends string>({
             onClick={() => onChange(o.value)}
             className={chipClass(value === o.value)}
           >
+            {o.icon ? <o.icon className="size-3.5 shrink-0" strokeWidth={1.75} aria-hidden="true" /> : null}
             {o.label}
           </button>
         ))}
@@ -131,8 +145,7 @@ export function ScopeBuilder() {
           </h2>
         </div>
         <p className="max-w-[330px] flex-none text-sm leading-relaxed text-gc-text-dim2">
-          Three clicks writes a real scope sheet — then sends it to us on WhatsApp, already filled in. No form, no
-          discovery call to book.
+          Three clicks. A real spec, sent to WhatsApp — already filled in.
         </p>
       </div>
 

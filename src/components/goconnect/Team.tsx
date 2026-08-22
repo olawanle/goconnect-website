@@ -1,11 +1,21 @@
-import { team, teamSection } from "@/data/goconnect-v2"
+import { Database, Megaphone, Radar, Smartphone } from "lucide-react"
+
+import { team, teamSection, type TeamIcon } from "@/data/goconnect-v2"
 import { cn, mergeRefs } from "@/lib/utils"
 
 import { useCardSpotlight, useReveal } from "./hooks"
 
+const ICONS: Record<TeamIcon, typeof Smartphone> = {
+  web: Smartphone,
+  systems: Database,
+  data: Radar,
+  growth: Megaphone,
+}
+
 function TeamCell({ member, delay }: { member: (typeof team)[number]; delay: number }) {
   const { ref: revealRef, visible } = useReveal<HTMLDivElement>()
   const spotRef = useCardSpotlight<HTMLDivElement>()
+  const Icon = ICONS[member.icon]
 
   return (
     <div
@@ -17,8 +27,8 @@ function TeamCell({ member, delay }: { member: (typeof team)[number]; delay: num
       style={{ transitionDelay: `${delay}ms` }}
     >
       <div className="flex items-center gap-2.5">
-        <span className="flex size-[26px] items-center justify-center rounded-sm border border-white/[0.14] font-mono text-[10px] text-gc-text-dim">
-          {member.seat}
+        <span className="flex size-[26px] items-center justify-center rounded-sm border border-white/[0.14] text-gc-text-dim">
+          <Icon className="size-[13px]" strokeWidth={1.75} aria-hidden="true" />
         </span>
         <span className="font-mono text-[10px] uppercase tracking-[0.13em] text-gc-text-dimmer">
           {member.role}

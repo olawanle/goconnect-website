@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils"
 import { useReveal } from "./hooks"
 
 export function FAQ() {
-  const [open, setOpen] = useState(0)
+  const [open, setOpen] = useState(-1)
   const { ref: headerRef, visible } = useReveal<HTMLDivElement>()
 
   return (

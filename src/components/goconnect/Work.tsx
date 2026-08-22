@@ -84,7 +84,7 @@ export function Work() {
             type="button"
             onClick={() => setFilter(f)}
             className={cn(
-              "min-h-[38px] rounded-sm border px-[13px] py-[9px] font-mono text-[10px] uppercase tracking-[0.1em] transition-all",
+              "min-h-10 rounded-sm border px-[14px] py-[9px] font-mono text-[10px] uppercase tracking-[0.1em] transition-all",
               filter === f
                 ? "border-gc-green/50 bg-gc-green/10 text-gc-green"
                 : "border-white/[0.12] bg-transparent text-gc-text-dim2 hover:border-white/25",

@@ -21,7 +21,7 @@ export const navLinks = [
 export const hero = {
   eyebrow: "Four specialists · No middlemen",
   title: "We build the thing you were told would take a year.",
-  sub: "Custom SaaS platforms, trading bots, AI chatbots and scraping pipelines — engineered by the four people who actually write the code. Thirty-plus builds shipped to production, most of them inside a quarter.",
+  sub: "Custom SaaS, trading bots, AI chatbots, scraping pipelines. Built by the four people who write the code — most of it shipped inside a quarter.",
   primaryCta: { label: "Scope your build →", href: "#build" },
   secondaryCta: { label: "See 17 shipped projects", href: "#work" },
 } as const
@@ -119,51 +119,65 @@ export const URGENCY: Record<BuildUrgency, { label: string; note: string }> = {
 export const servicesSection = {
   label: "02 / Services",
   title: "Four disciplines. One team.",
-  sub: "Tap a discipline — everything below is delivered by a named specialist inside GoConnect, not subcontracted, not templated.",
+  sub: "Tap a discipline. Each one ships from a named specialist — never subcontracted.",
 } as const
 
-export const services = [
+export type ServiceIcon = "saas" | "bot" | "ai" | "growth"
+
+export const services: ReadonlyArray<{
+  number: string
+  icon: ServiceIcon
+  name: string
+  sub: string
+  desc: string
+  points: string[]
+  tags: string[]
+}> = [
   {
     number: "01",
+    icon: "saas",
     name: "SaaS & full-stack",
     sub: "Web · Mobile · API · Deployment",
-    desc: "Custom SaaS platforms, web apps, mobile apps and chatbot front ends — architected, built and deployed by two dedicated engineers.",
+    desc: "Web apps, mobile apps and chatbot front ends — built and shipped by two dedicated engineers.",
     points: [
-      "Database to production with no handoff gaps",
-      "Auth, billing and admin scaffolded from the start",
+      "Database to production, no handoff gaps",
+      "Auth, billing and admin from day one",
       "Architecture that survives its second year",
     ],
     tags: ["React", "Next.js", "Node.js", "Python", "Django", "PostgreSQL"],
   },
   {
     number: "02",
+    icon: "bot",
     name: "Trading bots & automation",
     sub: "Scraping · Pipelines · Execution",
-    desc: "Large-scale web scraping, algorithmic trading bots, workflow automation and ETL pipelines — systems that earn while you sleep.",
+    desc: "Scraping, trading bots and pipelines that run — and earn — while you sleep.",
     points: [
-      "Battle-tested collectors with rotation and retry",
-      "Risk limits, kill switches and alerting built in",
+      "Collectors with rotation and retry, battle-tested",
+      "Risk limits, kill switches, alerting built in",
       "Backtest and paper-trade before capital moves",
     ],
     tags: ["Selenium", "Playwright", "Trading bots", "ETL", "Railway"],
   },
   {
     number: "03",
+    icon: "ai",
     name: "AI chatbots & Claude API",
     sub: "LLMs · Agents · Retrieval",
-    desc: "Intelligence embedded into products people already use: Botpress chatbots, autonomous agents, Claude and OpenAI integrations.",
+    desc: "Claude and OpenAI embedded into products people already use — chatbots, agents, retrieval.",
     points: [
       "Retrieval over your own content, not a generic prompt",
-      "Guardrails and a clean fallback to a human",
+      "Guardrails, and a clean fallback to a human",
       "Evaluation sets so quality is measured, not vibed",
     ],
     tags: ["Claude API", "OpenAI", "LangChain", "RAG", "Botpress"],
   },
   {
     number: "04",
+    icon: "growth",
     name: "Growth, funnels & SEO",
     sub: "Funnels · Ads · Technical SEO",
-    desc: "The engine that sells everything above — technical SEO, funnel design and paid media that compounds instead of leaking.",
+    desc: "Technical SEO and funnels that compound — instead of leaking budget.",
     points: [
       "Technical SEO, schema and page-speed pass",
       "Funnel rebuilt around one measurable action",
@@ -210,24 +224,33 @@ export const processSection = {
 } as const
 
 export const process = [
-  { step: "STEP 01", title: "You message", body: "WhatsApp or Telegram, with the build sheet above or just a paragraph. An engineer replies — usually the same day.", when: "Day zero" },
-  { step: "STEP 02", title: "We scope it hard", body: "One call to pressure-test the idea, cut what does not earn, and agree the smallest version worth shipping.", when: "Days 1–3" },
-  { step: "STEP 03", title: "It gets built in the open", body: "A staging URL in week one and a new build every week. You watch it happen instead of waiting for a reveal.", when: "Weeks 1–n" },
-  { step: "STEP 04", title: "You own it", body: "Production deploy, repository in your organisation, access handed over. Retain us after, or don't.", when: "Handover" },
+  { step: "STEP 01", title: "You message", body: "WhatsApp or Telegram. An engineer replies — usually same day.", when: "Day zero" },
+  { step: "STEP 02", title: "We scope it hard", body: "One call to cut the fat and agree the smallest shippable version.", when: "Days 1–3" },
+  { step: "STEP 03", title: "It gets built in the open", body: "Staging URL week one. A new build every week after.", when: "Weeks 1–n" },
+  { step: "STEP 04", title: "You own it", body: "Production deploy. Repo in your org. Yours to keep.", when: "Handover" },
 ] as const
 
 export const teamSection = {
   label: "05 / The roster",
   title: "Four seats. No bench.",
-  body1: "We list the seat, not the headshot — on purpose. Agencies sell you a senior in the pitch and staff a junior on the work. Here there is nobody else to staff: the four people below are the four people who build.",
-  body2: "Names, CVs and GitHub histories go on the table the moment we're talking about your project. Ask.",
+  body1: "No account managers. No junior swapped in after the pitch. These four build everything.",
+  body2: "Names, CVs, GitHub — on the table the moment we talk.",
 } as const
 
-export const team = [
-  { seat: "01", role: "Full-stack · seat one", name: "Web, mobile & chatbot", bio: "Takes web and mobile applications from zero to production. Botpress specialist with a sharp eye for UX and architecture that survives its second year.", skills: ["React", "Next.js", "React Native", "Botpress"] },
-  { seat: "02", role: "Full-stack · seat two", name: "SaaS, APIs & systems", bio: "Builds the backends other people are scared of: scalable SaaS platforms, deep API integration, complex systems made to feel simple.", skills: ["Python", "Django", "REST APIs", "PostgreSQL"] },
-  { seat: "03", role: "Data · seat three", name: "Scraping, bots & pipelines", bio: "Makes machines work around the clock. Trading algorithms, mass data extraction, monitored pipelines — if it can be automated, it will be.", skills: ["Selenium", "Playwright", "Python", "ETL"] },
-  { seat: "04", role: "Growth · seat four", name: "Funnels, ads & SEO", bio: "Turns finished products into revenue. Funnel strategy, paid media and conversion obsession — the reason the engineering gets seen.", skills: ["Meta Ads", "SEO", "Funnels", "Analytics"] },
+export type TeamIcon = "web" | "systems" | "data" | "growth"
+
+export const team: ReadonlyArray<{
+  seat: string
+  icon: TeamIcon
+  role: string
+  name: string
+  bio: string
+  skills: string[]
+}> = [
+  { seat: "01", icon: "web", role: "Full-stack · seat one", name: "Web, mobile & chatbot", bio: "Zero to production on web and mobile. Botpress specialist.", skills: ["React", "Next.js", "React Native", "Botpress"] },
+  { seat: "02", icon: "systems", role: "Full-stack · seat two", name: "SaaS, APIs & systems", bio: "Scalable backends and deep API integrations, made simple.", skills: ["Python", "Django", "REST APIs", "PostgreSQL"] },
+  { seat: "03", icon: "data", role: "Data · seat three", name: "Scraping, bots & pipelines", bio: "Trading algorithms and mass data extraction, automated.", skills: ["Selenium", "Playwright", "Python", "ETL"] },
+  { seat: "04", icon: "growth", role: "Growth · seat four", name: "Funnels, ads & SEO", bio: "Funnel strategy and paid media that actually convert.", skills: ["Meta Ads", "SEO", "Funnels", "Analytics"] },
 ] as const
 
 export const faqSection = {
@@ -247,7 +270,7 @@ export const faqs = [
 export const contactSection = {
   label: "07 / Start",
   title: "Send one message. Get a real answer today.",
-  sub: "No forms, no discovery-call funnel. Tell us what you're building and you'll hear back from the engineer who'd build it — usually within a few hours.",
+  sub: "No forms. Tell us what you're building — hear back from the engineer who'd build it, usually within hours.",
 } as const
 
 export const contactLinks = [

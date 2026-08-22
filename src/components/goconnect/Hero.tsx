@@ -15,7 +15,7 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative flex min-h-[92svh] items-center px-4 py-12 sm:px-7 sm:py-16"
+      className="relative flex items-center overflow-hidden px-4 py-12 sm:min-h-[92svh] sm:px-7 sm:py-16"
     >
       <div
         aria-hidden="true"

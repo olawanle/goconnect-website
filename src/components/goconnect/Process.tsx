@@ -1,9 +1,21 @@
+import { KeyRound, ListChecks, MessageCircle, Rocket } from "lucide-react"
+
 import { process, processSection } from "@/data/goconnect-v2"
 import { cn, mergeRefs } from "@/lib/utils"
 
 import { useCardSpotlight, useReveal } from "./hooks"
 
-function ProcessCell({ step, delay }: { step: (typeof process)[number]; delay: number }) {
+const ICONS = [MessageCircle, ListChecks, Rocket, KeyRound]
+
+function ProcessCell({
+  step,
+  icon: Icon,
+  delay,
+}: {
+  step: (typeof process)[number]
+  icon: (typeof ICONS)[number]
+  delay: number
+}) {
   const { ref: revealRef, visible } = useReveal<HTMLDivElement>()
   const spotRef = useCardSpotlight<HTMLDivElement>()
 
@@ -16,9 +28,12 @@ function ProcessCell({ step, delay }: { step: (typeof process)[number]; delay: n
       )}
       style={{ transitionDelay: `${delay}ms` }}
     >
-      <div className="flex items-center gap-[9px] font-mono text-[11px] tracking-[0.14em] text-gc-green">
-        <span className="size-1.5 bg-gc-green" />
-        {step.step}
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center gap-[9px] font-mono text-[11px] tracking-[0.14em] text-gc-green">
+          <span className="size-1.5 bg-gc-green" />
+          {step.step}
+        </div>
+        <Icon className="size-4 text-gc-text-dimmer" strokeWidth={1.75} aria-hidden="true" />
       </div>
       <h3 className="font-display text-xl font-medium leading-tight tracking-[-0.02em] text-gc-text-bright">
         {step.title}
@@ -47,7 +62,7 @@ export function Process() {
       </div>
       <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,240px),1fr))] gap-px overflow-hidden rounded border border-white/[0.08] bg-white/[0.08]">
         {process.map((p, i) => (
-          <ProcessCell key={p.step} step={p} delay={i * 80} />
+          <ProcessCell key={p.step} step={p} icon={ICONS[i]} delay={i * 80} />
         ))}
       </div>
     </section>

@@ -1,10 +1,20 @@
+import { Mail, MessageCircle, Send, Twitter } from "lucide-react"
+
 import { contactLinks, contactSection, TELEGRAM_LINK, WHATSAPP_BASE_LINK, WHATSAPP_DISPLAY } from "@/data/goconnect-v2"
 import { cn } from "@/lib/utils"
 
 import { useCardSpotlight, useReveal } from "./hooks"
 
+const ICONS: Record<string, typeof Mail> = {
+  WhatsApp: MessageCircle,
+  Telegram: Send,
+  "X / Twitter": Twitter,
+  Email: Mail,
+}
+
 function ContactRow({ link }: { link: (typeof contactLinks)[number] }) {
   const spotRef = useCardSpotlight<HTMLAnchorElement>()
+  const Icon = ICONS[link.label] ?? Mail
 
   return (
     <a
@@ -14,7 +24,10 @@ function ContactRow({ link }: { link: (typeof contactLinks)[number] }) {
       rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
       className="gc-spot-card flex min-h-6 flex-wrap items-center justify-between gap-x-4 gap-y-1.5 bg-gc-dark px-5 py-[17px] transition-colors hover:bg-gc-dark2"
     >
-      <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-gc-text-dimmer">{link.label}</span>
+      <span className="flex items-center gap-2.5 font-mono text-[10px] uppercase tracking-[0.15em] text-gc-text-dimmer">
+        <Icon className="size-[15px]" strokeWidth={1.75} aria-hidden="true" />
+        {link.label}
+      </span>
       <span className="text-[14.5px] text-gc-text">{link.value}</span>
     </a>
   )

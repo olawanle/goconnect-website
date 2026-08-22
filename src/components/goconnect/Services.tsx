@@ -1,13 +1,22 @@
 import { useState } from "react"
+import { Bot, Code2, MessagesSquare, TrendingUp } from "lucide-react"
 
-import { services, servicesSection } from "@/data/goconnect-v2"
+import { services, servicesSection, type ServiceIcon } from "@/data/goconnect-v2"
 import { cn } from "@/lib/utils"
 
 import { useCardSpotlight, useReveal } from "./hooks"
 
+const ICONS: Record<ServiceIcon, typeof Code2> = {
+  saas: Code2,
+  bot: Bot,
+  ai: MessagesSquare,
+  growth: TrendingUp,
+}
+
 export function Services() {
   const [active, setActive] = useState(0)
   const activeService = services[active]
+  const ActiveIcon = ICONS[activeService.icon]
   const { ref: headerRef, visible } = useReveal<HTMLDivElement>()
   const spotRef = useCardSpotlight<HTMLDivElement>()
 
@@ -26,40 +35,53 @@ export function Services() {
 
       <div className="flex flex-wrap items-stretch gap-5">
         <div className="flex min-w-0 flex-1 basis-[330px] flex-col gap-px overflow-hidden rounded border border-white/[0.08] bg-white/[0.08]">
-          {services.map((s, i) => (
-            <button
-              key={s.number}
-              type="button"
-              onClick={() => setActive(i)}
-              className={cn(
-                "grid grid-cols-[26px_minmax(0,1fr)_4px] items-center gap-[13px] px-5 py-[18px] text-left transition-colors",
-                active === i ? "bg-gc-dark2 text-gc-text-bright" : "bg-gc-dark text-gc-text-dim",
-              )}
-            >
-              <span className="font-mono text-[11px] tracking-[0.12em] text-gc-text-dimmer2">{s.number}</span>
-              <span className="flex min-w-0 flex-col gap-[5px]">
-                <span className="font-display text-[clamp(17px,3.4vw,19px)] font-medium tracking-[-0.02em]">
-                  {s.name}
-                </span>
-                <span className="font-mono text-[9.5px] uppercase tracking-[0.13em] text-gc-text-dimmer">
-                  {s.sub}
-                </span>
-              </span>
-              <span
+          {services.map((s, i) => {
+            const Icon = ICONS[s.icon]
+            return (
+              <button
+                key={s.number}
+                type="button"
+                onClick={() => setActive(i)}
                 className={cn(
-                  "block w-1 justify-self-end bg-gc-green transition-[height] duration-200",
-                  active === i ? "h-8" : "h-0",
+                  "grid grid-cols-[34px_minmax(0,1fr)_4px] items-center gap-[13px] px-5 py-[18px] text-left transition-colors",
+                  active === i ? "bg-gc-dark2 text-gc-text-bright" : "bg-gc-dark text-gc-text-dim",
                 )}
-              />
-            </button>
-          ))}
+              >
+                <span
+                  className={cn(
+                    "flex size-[34px] items-center justify-center rounded-[3px] border transition-colors",
+                    active === i
+                      ? "border-gc-green/40 bg-gc-green/10 text-gc-green"
+                      : "border-white/[0.09] bg-gc-dark3 text-gc-text-dimmer2",
+                  )}
+                >
+                  <Icon className="size-4" strokeWidth={1.75} aria-hidden="true" />
+                </span>
+                <span className="flex min-w-0 flex-col gap-[5px]">
+                  <span className="font-display text-[clamp(17px,3.4vw,19px)] font-medium tracking-[-0.02em]">
+                    {s.name}
+                  </span>
+                  <span className="font-mono text-[9.5px] uppercase tracking-[0.13em] text-gc-text-dimmer">
+                    {s.sub}
+                  </span>
+                </span>
+                <span
+                  className={cn(
+                    "block w-1 justify-self-end bg-gc-green transition-[height] duration-200",
+                    active === i ? "h-8" : "h-0",
+                  )}
+                />
+              </button>
+            )
+          })}
         </div>
 
         <div
           ref={spotRef}
           className="gc-panel gc-spot-card flex min-w-0 flex-1 basis-[400px] flex-col gap-5 p-[clamp(22px,3.6vw,32px)]"
         >
-          <div className="font-mono text-[10.5px] uppercase tracking-[0.16em] text-gc-green">
+          <div className="flex items-center gap-2.5 font-mono text-[10.5px] uppercase tracking-[0.16em] text-gc-green">
+            <ActiveIcon className="size-4" strokeWidth={1.75} aria-hidden="true" />
             {activeService.sub}
           </div>
           <p className="text-pretty text-[clamp(15.5px,2.4vw,17px)] leading-relaxed text-gc-text">
