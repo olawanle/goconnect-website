@@ -3,8 +3,8 @@ export const LOGO_MARK_PATH = "/logo-mark.png"
 
 export const EMAIL = "goconnect234@gmail.com"
 
-export const WHATSAPP_NUMBER = "13652760910"
-export const WHATSAPP_DISPLAY = "+1 365 276 0910"
+export const WHATSAPP_NUMBER = "17827254625"
+export const WHATSAPP_DISPLAY = "+1 782 725 4625"
 export const WHATSAPP_BASE_LINK = `https://wa.me/${WHATSAPP_NUMBER}`
 export const TELEGRAM_LINK = "https://t.me/goconnectdev"
 
